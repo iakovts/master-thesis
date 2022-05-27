@@ -1,0 +1,19 @@
+\contentsline {chapter}{Declaration of Authorship}{i}{dummy.2}%
+\vspace {1em}
+\contentsline {chapter}{Abstract}{iii}{dummy.3}%
+\vspace {1em}
+\contentsline {chapter}{Acknowledgements}{iv}{dummy.4}%
+\vspace {1em}
+\contentsline {chapter}{List of Figures}{vi}{dummy.6}%
+\contentsline {chapter}{List of Tables}{vii}{dummy.8}%
+\contentsline {chapter}{Abbreviations}{viii}{dummy.10}%
+\vspace {2em}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.13}%
+\contentsline {chapter}{\numberline {2}Literature Review}{2}{chapter.14}%
+\contentsline {chapter}{\numberline {3}Notation \& Fundamentals}{3}{chapter.15}%
+\contentsline {chapter}{\numberline {4}Basic Principles and Implementation Framework for an [Problem to be Solved]}{4}{chapter.16}%
+\contentsline {chapter}{\numberline {5}Implementation and Core Components of [Platform Title]}{5}{chapter.17}%
+\contentsline {chapter}{\numberline {6}Experimentation \& Validation}{6}{chapter.18}%
+\contentsline {chapter}{\numberline {7}Conclusions \& Future Work}{7}{chapter.19}%
+\vspace {2em}
+\vspace {2em}
