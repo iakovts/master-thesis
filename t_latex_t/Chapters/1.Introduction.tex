@@ -1,1 +1,71 @@
 \chapter{Introduction} \label{introduction}
+
+\section{Background}
+
+\subsection{Graphs}
+
+In this subsection, the main aspects of graph theory are briefly presented.
+
+\subsubsection{Begginings and historical remarks}
+
+Graph theory
+
+\subsubsection{Introduction}
+
+In the real world, many problems can be described by a diagram connecting a set of points with
+lines, joining pairs of these points, or even creating loops on a single point. A simple example
+of that would be a set of points representing people with lines connecting acquintances, or
+points representing atoms and lines representing chemical bonds, creating a representation of
+a molecule as a graph attribute. In the examples above, the only information contained is whether
+two points are associated, with the manner being disregarded. The concept of a graph consists of
+a mathematical abstraction of the above. \cite{book:2008}
+
+
+\begin{definition} \label{u_simple_graph} Mathematically, in its simplest form, a
+\textbf{undirected simple graph\footnote{}} is an ordered pair $G=(V, E)$ of:
+\end{definition}
+
+\begin{definition}\label{graph_def}
+  A \textit{graph} G is an ordered pair \footnotemark{} $(V(G), E(G))$ consisting of a set
+$V(G)$ of \textit{vertices} (also called \textit{nodes} or \textit{points}) and a set
+$E(G)$, disjoint from $V(G)$ which consists of \textit{edges} (also called \textit{links}
+or \textit{lines}) together with an incidence function $\psi_G$ that associates with each
+edge of G an unordered pair of not necesserily distinct vertices of G.  If $e$ is an edge
+and $u$ and $v$ are vertices such that $psi_G ={u, v}$ then $e$ is said to \textit{join}
+$u$ and $v$, and the vertices $u$ and $v$ are called the \textit{ends} of $e$. We denote
+the numbers of vertices and edges $G$ by $u(G)$ and $e(G)$ which two parameters are called
+the \textit{order} and \textit{size} of G, respectively \cite{book:2008}.
+
+  In short, we can define a \textbf{graph} as an ordered triple $G=(V, E, \phi_G)$
+consisting of:
+  \begin{itemize}
+  \item $V$, a set of \textit{vertices}
+  \item $E$, a set of \textit{edges}
+  \item $\phi_G: E \rightarrow \{\{x, y\} | x, y \in V \; and \; x \neq y\}$ an
+\textit{incidence function} mapping every edge to an unordered pair of vertices - an edge
+associated with two distinct vertices.
+  \end{itemize} This type of object is called an \textit{undirected multigraph}, to avoid
+confusion. Note, that the above definition of the \textit{incidence function} does not
+allow for \textit{loops} (mappings of an edge on the same vertex).
+
+A \textit{loop} is a an edge that allows a connection of a vertex to itself and a graph can
+be defined to either allow or disallow the presence of loops. Some authors allow for loops
+to exist on \textit{multigraphs} \cite{article:bollobas}, while other consider these kind
+of graphs to exist in a different category, called \textit{pseudographs} \cite{book:Gary}.
+Allowing loops requires modifying the incidence function so they can be supported. The new
+incidence function can be written as:
+\begin{equation*} \phi_G : E \rightarrow \{\{x, y \} | x,y \in V\} \end{equation*}
+Graphs which su
+  
+
+
+
+\footnotetext{An ordered pair $(a, b)$ is a pair of objects in which the order of
+appearance or insertion is significant; the ordered pair $(a, b)$ is different than $(b,
+a)$ unless $a=b$. An unordered pair is a set of the form ${a, b}$ is a set having two
+elements with no relation between them and ${a, b} = {b, a}$.  }
+
+\end{definition}
+
+
+

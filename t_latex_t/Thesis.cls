@@ -161,10 +161,10 @@
                 {SCHOOL OF PHYSICS}}
                 {DEPARTMENT OR SCHOOL NAME (IN BLOCK CAPITALS)}}
 \group       {\texorpdfstring{\href{https://datalab.csd.auth.gr/}
-                {Datalab: Data and Web Science Lab}}
+                {Kelifos: Computational Physics Group A.U.Th.}}
                 {Research Group Name}}
 \GROUP       {\texorpdfstring{\href{https://datalab.csd.auth.gr/}
-                {DATALAB: DATA AND WEB SCIENCE LAB}}
+                {KELIFOS: COMPUTATIONAL PHYSICS GROUP A.U.Th.}}
                 {RESEARCH GROUP NAME (IN BLOCK CAPITALS)}}
 \faculty     {\texorpdfstring{\href{http://www.sci.auth.gr/}
                 {Faculty of Sciences}}
