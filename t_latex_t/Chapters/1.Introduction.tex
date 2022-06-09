@@ -218,3 +218,90 @@ Thus, the adjacency matrix for the graph of \fref{fig:compl_adj_demo} is
   \end{equation*}
   \caption{Adjacency matrix for  \fref{fig:compl_adj_demo}}
 \end{table}
+
+\begin{remark}
+  Note that the degree of a node can be easily found by summing the values of
+  the column or row of the adjacency matrix that correspond to said node.
+\end{remark}
+
+So far, while presenting edges, we have considered graphs where
+connections between nodes represented binary relations between them;
+they either existed or they did not. In many situations when studying
+graphs, it is useful to represent edges as connections which carry some
+kind of attribute or value, commonly called \textit{weight}. This weight
+could be any real number that fits a particular example, such as the distance
+between two airfields on an airline network, the kinship of connections
+on a social network (negative values can represent animosity and vice versa)
+or any type of relational attribute that can be quantified and
+characterizes the connection between nodes that belong in the same
+network\cite[p.~109]{book:Newman}. A simple example is presented in
+the figure below.
+\begin{figure}[h]
+     \begin{subfigure}[c]{0.4\textwidth}
+         \centering
+         \includegraphics[scale=0.5]{Figures/chapter1/simple_weighted.png}
+         \caption{Multigraph with no loops and multiple edges.}
+         \label{fig:simple_adj_demo}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[c]{0.4\textwidth}
+       \centering
+       \begin{equation*}
+         A = 
+        \begin{pmatrix}
+        0 & 4 & 0.5 \\
+        4 & 0 & 1.2 \\
+        0.5 & 1.2 & 0 
+        \end{pmatrix}  
+\end{equation*}
+\newline
+\newline
+\newline
+\newline
+\newline
+\caption{Corresponding adjacency matrix.}
+\label{table:weighted_adj}
+\end{subfigure}
+  \caption{Simple example of an unordered graph with weighted edges}
+  \label{fig:weighted_graph}
+\end{figure}
+
+Generally, edges and nodes can hold any type of variable as values,
+such as vectors, the usefulness of which will become apparent when
+computer algorithms for graph representations and graph neural
+networks are discussed in later sections and chapters.
+
+\begin{remark}
+  An alternative to the adjacency matrix is the \textit{adjacency
+list}. An adjacency list is a collection of lists, one for each node
+$i$. Each list contains the labels of the nodes that $i$ is connected
+to, and its the most common method for storing networks on computers
+as it requires less space. It is also possible to represent edge
+attributes in an adjacency list by appending an extra column which
+holds these values. An example for the graph presented in
+\fref{fig:compl_adj_demo} with multiedges and loops:
+
+\begin{table}[H]
+  \centering
+\begin{tabular}{|l|l|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+{\color[HTML]{000000} Node} & {\color[HTML]{000000} Neighbors} \\ \hline
+1                           & 1,2,2,5,3                        \\ \hline
+2                           & 1,1,3,5,6,4                     \\ \hline
+3                           & 1,2,4                           \\ \hline
+4                           & 3,2                             \\ \hline
+5                           & 1,2                             \\ \hline
+6                           & 2                                \\ \hline
+\end{tabular}
+\label{table:adj_list_ex}
+\caption{Adjacency list for \fref{fig:compl_adj_demo}}
+\end{table}
+Each edge of the network appears twice, thus for a network with $m$
+edges the size of the adjacency list would be $2m$, much smaller
+compared to the $n \times n$ matrix required to build an adjacency
+matrix. This is particularly useful in networks which are relatively
+\textit{sparse}\footnote{\textit{Sparse} networks are networks with a
+much lower number of edges than those possible.}, but have a high
+order.
+\end{remark}
