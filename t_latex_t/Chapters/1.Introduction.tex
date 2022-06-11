@@ -223,6 +223,41 @@ Thus, the adjacency matrix for the graph of \fref{fig:compl_adj_demo} is
   Note that the degree of a node can be easily found by summing the values of
   the column or row of the adjacency matrix that correspond to said node.
 \end{remark}
+\subsubsection{Adjacency List}
+  An alternative to the adjacency matrix is the \textit{adjacency
+list}. An adjacency list is a collection of lists, one for each node
+$i$. Each list contains the labels of the nodes that $i$ is connected
+to, and its the most common method for storing networks on computers
+as it requires less space. It is also possible to represent edge
+attributes in an adjacency list by appending an extra column which
+holds these values. An example for the graph presented in
+\fref{fig:compl_adj_demo} with multiedges and loops:
+
+\begin{table}[H]
+  \centering
+\begin{tabular}{|l|l|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+{\color[HTML]{000000} Node} & {\color[HTML]{000000} Neighbors} \\ \hline
+1                           & 1,2,2,5,3                        \\ \hline
+2                           & 1,1,3,5,6,4                     \\ \hline
+3                           & 1,2,4                           \\ \hline
+4                           & 3,2                             \\ \hline
+5                           & 1,2                             \\ \hline
+6                           & 2                                \\ \hline
+\end{tabular}
+\label{table:adj_list_ex}
+\caption{Adjacency list for \fref{fig:compl_adj_demo}}
+\end{table}
+Each edge of the network appears twice, thus for a network with $m$
+edges the size of the adjacency list would be $2m$, much smaller
+compared to the $n \times n$ matrix required to build an adjacency
+matrix. This is particularly useful in networks which are relatively
+\textit{sparse}\footnote{\textit{Sparse} networks are networks with a
+much lower number of edges than those possible.}, but have a high
+order.
+
+\subsection{Edge weights} \label{sec:edge_weights}
 
 So far, while presenting edges, we have considered graphs where
 connections between nodes represented binary relations between them;
@@ -271,37 +306,172 @@ such as vectors, the usefulness of which will become apparent when
 computer algorithms for graph representations and graph neural
 networks are discussed in later sections and chapters.
 
-\begin{remark}
-  An alternative to the adjacency matrix is the \textit{adjacency
-list}. An adjacency list is a collection of lists, one for each node
-$i$. Each list contains the labels of the nodes that $i$ is connected
-to, and its the most common method for storing networks on computers
-as it requires less space. It is also possible to represent edge
-attributes in an adjacency list by appending an extra column which
-holds these values. An example for the graph presented in
-\fref{fig:compl_adj_demo} with multiedges and loops:
 
-\begin{table}[H]
-  \centering
-\begin{tabular}{|l|l|}
-\hline
-\rowcolor[HTML]{C0C0C0} 
-{\color[HTML]{000000} Node} & {\color[HTML]{000000} Neighbors} \\ \hline
-1                           & 1,2,2,5,3                        \\ \hline
-2                           & 1,1,3,5,6,4                     \\ \hline
-3                           & 1,2,4                           \\ \hline
-4                           & 3,2                             \\ \hline
-5                           & 1,2                             \\ \hline
-6                           & 2                                \\ \hline
-\end{tabular}
-\label{table:adj_list_ex}
-\caption{Adjacency list for \fref{fig:compl_adj_demo}}
-\end{table}
-Each edge of the network appears twice, thus for a network with $m$
-edges the size of the adjacency list would be $2m$, much smaller
-compared to the $n \times n$ matrix required to build an adjacency
-matrix. This is particularly useful in networks which are relatively
-\textit{sparse}\footnote{\textit{Sparse} networks are networks with a
-much lower number of edges than those possible.}, but have a high
-order.
+\subsection{Distance between nodes and shortest paths}
+
+On a graph, any route that traverses nodes along the edges connecting them
+creates a sequence which is called a \textit{walk}. Walks are not prohibited
+from traversing previously visited nodes and edges, but walks that do not intersect
+themselves are called \textit{paths}.
+
+\begin{remark}
+  \textit{Adjacency Matrix Powers}  ~Before continuing, it is worth
+  mentioning that the powers of the adjacency matrix $A^c$ directly provide
+  the number of walks of length $c$ among two nodes. If there is a connection
+  between two nodes $i$ and $j$, then $A_{ij} = 1$ else it is 0. Moving
+  to the second power and taking for example an intermediate node $k$
+  which might lie between $i$ and $j$, the product $A_{ik}{kj}$ would be
+  1 if there is a node and 0 if there is not \cite[p.~131]{book:Newman}.
+  Generalizing to walks of length $c$ which traverse nodes $i$ to $j$, their
+total number is:
+  \begin{equation*}
+    N^{(c)}_{ij} = [A^c]_{ij}
+  \end{equation*}
 \end{remark}
+
+The \textit{shortest path} between two nodes is the shortest walk
+between those two nodes, the walk which traverses the least amount of
+nodes. In terms of edges, the least number that must be traversed
+is called \textit{shortest distance}
+or often just ``distance''. Mathematically, the shortest distance
+between two nodes $i$ and $j$ is the walk with the smallest value $c$ where
+$[A^c]_{ij} > 0$
+
+\newpage
+  \begin{example}
+    For instance consider the following graph:
+\begin{figure}[!h]
+     \begin{subfigure}[c]{0.4\textwidth}
+         \centering
+         \includegraphics[scale=0.45]{Figures/chapter1/simple_graph_dist.png}
+         \label{fig:simple_adj_demo}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[c]{0.4\textwidth}
+       \centering
+       \begin{equation*}
+         A = 
+\begin{pmatrix}
+0 & 1 & 1 & 0 & 1 & 0 \\
+1 & 0 & 1 & 1 & 1 & 0 \\
+1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 \\
+1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 \\
+ 
+\end{pmatrix} \end{equation*}
+\label{table:weighted_adj}
+\end{subfigure}
+  \caption{A graph with a maximum path of 3 (nodes 1 to 6).}
+  \label{fig:weighted_graph}
+\end{figure}
+
+In this example, it can be visiually determined that the minimum walk
+between nodes 1 and 6 is of length 3.  Indeed, raising the adjacency
+matrix to a power of three yields for these nodes:
+\begin{equation*}
+  \begin{split}
+ &\cdots \\
+ &N_{1,6}^{(2)} = \sum^nA_{1k}A_{k6} = [A^2]_{1,6} = 0 \\
+ &N_{1,6}^{(3)} = \sum^nA_{1k}A_{kl}A_{l6} = [A^3]_{1,6} = 1
+    \end{split}
+\end{equation*}
+  \end{example}
+
+
+  
+
+% The \textit{distance} between nodes is the number of edges that must be
+% traversed to reach
+
+\subsection{Node and edge properties}
+  As mentioned in \sref{sec:edge_weights}, edges can hold more information
+  than just the binary relations between nodes. In fact, this concept can
+  be generalized to nodes and even whole graphs. When studying graphs and
+  networks, especially when using computational methods for applications
+  like complex dynamics, it is the most natural way to phrase data on a
+  graph. The data can be any real number or even categorical data, such
+  as colors.
+
+  The matrices which hold the information mentioned before are
+  \begin{itemize}
+  \item \textbf{V: vertex (or node) attributes} (i.e. a label or
+number of neighbors)
+  \item \textbf{E: edge (or link) attributes} (i.e. a label or edge
+weight)
+  \item \textbf{U: global (or master node) attributes} (i.e. number of
+nodes or number of paths of length 2)
+  \end{itemize}
+
+  Global attributes usually get their values as an aggregation of the
+  attributes of the nodes and edges, and methods applied on them.
+  For instance, a molecule might have chemical elements as node
+  attributes, types of bonds as edge attributes and the toxicity of
+  the molecule as graph attributes
+
+  
+  An example of a classroom should better illustrate the concept.
+
+  \begin{example}
+    In this example, a classroom of 5 classmates is presented. Each student
+    has a number of \textit{node} attributes, their age, heigh and average
+    grade (from F to A). \textit{Edge} attributes between students hold
+    information about their physical proximity when seated for class,
+    and their kinship (as a real number between $0-1$). Finally,
+    \textit{global} attributes consist of information about the classroom,
+    such as total number of students and class's failure rate.
+    \begin{figure}[!h]
+     \begin{subfigure}[c]{0.4\textwidth}
+         \centering
+         \includegraphics[scale=0.45]{Figures/chapter1/example_node_properties.png}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[c]{0.4\textwidth}
+       \centering
+       \begin{equation*}
+         A = 
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 0 & 1 & 1 \\
+0 & 0 & 1 & 0 & 1 \\
+1 & 1 & 1 & 1 & 0 \\ 
+\end{pmatrix} \end{equation*}
+\label{table:properties_example}
+\end{subfigure}
+  \caption{Example graph of a small classroom with labeled edges and nodes}
+  \label{fig:properties_example}
+\end{figure}
+
+\begin{table}[H]%
+  \centering
+  \subfloat[][]{
+\begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |l|l|l|}
+\hline
+Node & \cellcolor[HTML]{C0C0C0}Age & \cellcolor[HTML]{C0C0C0}Height & \cellcolor[HTML]{C0C0C0}Grade \\ \hline
+s1   & 11.5                        & 135                            & C                             \\ \hline
+s2   & 12                          & 140                            & B                             \\ \hline
+s3   & 12                          & 142                            & A                             \\ \hline
+s4   & 11.5                        & 132                            & A                             \\ \hline
+s5   & 12                          & 143                            & B                             \\ \hline
+\end{tabular}}
+  \qquad
+  \subfloat[][]{
+    \begin{tabular}{|
+>{\columncolor[HTML]{C0C0C0}}l |l|l|}
+\hline
+Edge & \cellcolor[HTML]{C0C0C0}Distance & \cellcolor[HTML]{C0C0C0}Kinship \\ \hline
+A    & 1.5                              & 0.5                             \\ \hline
+B    & 1.2                              & 0.5                             \\ \hline
+C    & 0.5                              & 0.8                             \\ \hline
+D    & 2                                & 0.35                            \\ \hline
+E    & 2                                & 0.3                             \\ \hline
+F    & 0.5                              & 0.9                             \\ \hline
+\end{tabular}
+  }
+  \caption{A) Node properties B) Edge properties}%
+  \label{tbl:Node and edge properties}%
+\end{table}
+
+  \end{example}

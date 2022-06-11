@@ -29,6 +29,16 @@ edge_list_simple = [
     (6, 2),
 ]
 
+edge_list_s2 = [
+    (1, 2),
+    (2, 3),
+    (1, 3),
+    (3, 4),
+    (2, 4),
+    (1, 5),
+    (2, 5),
+]
+
 def create_simple_MG():
     el = edge_list_simple.copy()
     MG = nx.MultiGraph(edge_list_simple)
