@@ -4,7 +4,7 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("Thesis" "a4paper" "11pt" "oneside")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("natbib" "square" "numbers" "comma" "sort&compress")))
+                     '(("xcolor" "table") ("inputenc" "utf8") ("natbib" "square" "numbers" "comma" "sort&compress")))
    (TeX-run-style-hooks
     "latex2e"
     "Chapters/1"
@@ -26,6 +26,9 @@
     "tcolorbox"
     "textcomp"
     "multicol"
+    "amsmath"
+    "inputenc"
+    "pgfplots"
     "natbib"
     "verbatim"
     "float"
@@ -35,6 +38,8 @@
    (LaTeX-add-bibliographies
     "Bibliography")
    (LaTeX-add-counters
-    "descriptcount"))
+    "descriptcount")
+   (LaTeX-add-enumitem-newlists
+    '("enumdescript" "description")))
  :latex)
 
