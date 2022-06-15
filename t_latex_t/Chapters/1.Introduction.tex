@@ -257,6 +257,33 @@ matrix. This is particularly useful in networks which are relatively
 much lower number of edges than those possible.}, but have a high
 order.
 
+\subsection{Graph Laplacian}\label{sec:laplacian}
+
+The graph lacplacian is another representation matrix representation
+of a graph. In its simplest form, for a simple, undirected and unweigheted
+network of order $n$, is a $n \times n$ matrix \textbf{L} with elements:
+\begin{equation*}
+  L_{ij} = \begin{cases}k_i, &\text{if $i=j$}\\
+             -1, & \text{if i $\neq$ j and there exists an edge connecting $i$ and $j$} \\
+             0, & \text{everywhere else}
+           \end{cases} 
+\end{equation*}
+where $k_i$ is the degree of the node. Another way to write the graph Lacplacian
+is as
+\begin{equation*}
+  \textbf{L} = \textbf{D} - \textbf{A}
+\end{equation*}
+where \textbf{D} is a diagonal matrix containing the degrees of the nodes.
+
+In a similar manner the Laplacian matrix can be constructed for weighted networks,
+by replacing the the degree $k_i$ of a node with the relevant matrix elements.
+
+The Laplacian matrix has many applications in the study of dynamical systems,
+random walks and graph visualization. It has also found applications in graph
+neural networks, as its spectral decomposition allows the construction of low
+dimensional embeddings with applications in graph neural networks, such as
+ChebNet \cite{article:ChebNet} which will be discussed in depth later.
+
 \subsection{Edge weights} \label{sec:edge_weights}
 
 So far, while presenting edges, we have considered graphs where
@@ -337,14 +364,13 @@ or often just ``distance''. Mathematically, the shortest distance
 between two nodes $i$ and $j$ is the walk with the smallest value $c$ where
 $[A^c]_{ij} > 0$
 
-\newpage
   \begin{example}
     For instance consider the following graph:
 \begin{figure}[!h]
      \begin{subfigure}[c]{0.4\textwidth}
          \centering
          \includegraphics[scale=0.45]{Figures/chapter1/simple_graph_dist.png}
-         \label{fig:simple_adj_demo}
+         % \label{fig:simple_adj_demo}
      \end{subfigure}
      \hfill
      \begin{subfigure}[c]{0.4\textwidth}
@@ -407,18 +433,19 @@ nodes or number of paths of length 2)
   attributes of the nodes and edges, and methods applied on them.
   For instance, a molecule might have chemical elements as node
   attributes, types of bonds as edge attributes and the toxicity of
-  the molecule as graph attributes
+  the molecule as graph attributes.  An example of a classroom should
+  better illustrate the concept.
+\newpage
 
   
-  An example of a classroom should better illustrate the concept.
 
   \begin{example}
     In this example, a classroom of 5 classmates is presented. Each student
-    has a number of \textit{node} attributes, their age, heigh and average
-    grade (from F to A). \textit{Edge} attributes between students hold
+    has a number of \textbf{node} attributes, their age, heigh and average
+    grade (from F to A). \textbf{Edge} attributes between students hold
     information about their physical proximity when seated for class,
     and their kinship (as a real number between $0-1$). Finally,
-    \textit{global} attributes consist of information about the classroom,
+    \textbf{global} attributes consist of information about the classroom,
     such as total number of students and class's failure rate.
     \begin{figure}[!h]
      \begin{subfigure}[c]{0.4\textwidth}
@@ -443,7 +470,7 @@ nodes or number of paths of length 2)
   \label{fig:properties_example}
 \end{figure}
 
-\begin{table}[H]%
+\begin{table}[h]%
   \centering
   \subfloat[][]{
 \begin{tabular}{|
@@ -473,5 +500,39 @@ F    & 0.5                              & 0.9                             \\ \hl
   \caption{A) Node properties B) Edge properties}%
   \label{tbl:Node and edge properties}%
 \end{table}
+\begin{table}[h!]
+  \centering
+\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+                          & No. Nodes & Failure \% \\ \hline
+\cellcolor[HTML]{C0C0C0}G & 5         & 0          \\ \hline
+\end{tabular}
+\caption{Graph Properties}
+\end{table}
 
-  \end{example}
+\end{example}
+
+\clearpage
+\section{Network Dynamics}
+
+Frequently, it is useful to consider cases where the status of the
+networks studied changes over time. This could mean that the topology
+of the network changes (i.e. nodes and edges are added or removed),
+the internal state of the network changes (the properties discussed in
+the previous section) or both. 
+
+The main concern of this thesis is with networks with a fixed topology
+, but with elements (nodes and edges) whose properties constitute
+dynamical quantities which can change over time. Following some dynamical
+rule, nodes can interact with their neighbors or change their own
+properties, with edges dictating which interactions are possible.
+In fact, the study of network dynamics combines graph theory with
+non-linear dynamics \cite{book:Jost2007}.
+
+For many real world situations, a proper model of their processes
+consists of dynamical systems acting on networks. This can range
+from opinion spreading, epidemics, flow of electricity on grids,
+spread of packages on internet networks and many more systems
+whose dynamics are evolving on a network. In fact, many network
+processes can be understood 
