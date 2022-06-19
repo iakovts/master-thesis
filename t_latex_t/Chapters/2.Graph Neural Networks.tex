@@ -18,7 +18,7 @@ compute, a neural net should too. The models they described had weights
 and thresholds, but they lacked a training method. 
 
 The suggestions of McCulloch and Pitts lead Frank Rosenblatt to create
-the \textit{Perceptron} in 1958 \cite{article:Rosenblatt1958ThePa}, a
+the \textit{Perceptron} in 1958 \cite{article:Rosenblatt1958ThePA}, a
 binary classifier algorithm based on supervised
 learning\footnote{Supervised learning is a machine learning training
 technique that optimizes a model based on examples input-output
@@ -152,6 +152,31 @@ a compact matrix form, as shown below.
 
 % TODO: Describe deep learning (multiple layers?)
 
+
+\subsection{Gradient Descent}\label{sec:gradient_descent}
+
+Gradient descent is a method of minimizing a function $f(x)$ and
+finding a local minimum, given that its differentiable. The
+derivative $f'(x)$ is the slope of $f(x)$ at $x$, so it specifies
+how a change in x would provide a step towards the local minimum. For instance,
+for small values of $\epsilon$, $f(x - \epsilon \sgn (f'(x)))$\footnote{
+  $\sgn$ is the \textit{signum function}, a piecewise function which returns
+  the sign of its input. (i.e. $\sgn(-1) = -1$ and $\sgn(12) = 1$).
+} is less than than $f(x)$ and traversing the slope to ever decreasing
+values if possible through following the direction with the opposite
+sign of the derivate. This method is called \textbf{gradient descent}
+and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
+
+
+
+
+\begin{figure}[h]
+  \centering
+  \input{tikz_figures/chap_nn/gradient_descent_3d.tex}
+  \caption{Gradient descent in three dimensional space}
+  \label{fig:gradient_descent_2d}
+\end{figure}
+
 \subsection{Types of the most common ANNs}
 
 \subsubsection{Feedforward Networks}
@@ -190,9 +215,11 @@ as they transform the data in a way defined by the training goal. The
 learning algorithm can ``use'' them in any way that is useful to it, and
 the training data has no immediate effect on their behaviour. They are
 thus called \textbf{``hidden layers''} as they do not produce any
-useful output. 
+meaningful result, related to the function \cite[p.~160]{book:Goodfellow}. 
 
 \subsubsection*{Common FNNs}
+
+\textbf{Single-layer Perceptron} 
 % In feedforward neural networks, information flows from the input
 % \textbf{$x$} layer towards the output
 
