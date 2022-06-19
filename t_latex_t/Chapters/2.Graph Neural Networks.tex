@@ -54,17 +54,154 @@ In recent years, neural
 
 One can think of ANNs as a directed graph, with a collection of nodes
 which are densely connected (called \textbf{artificial neurons}),
-transimiting signals to each other. These nodes are usually
-organized in sets of layers, with signals moving in one direction
+transimiting signals to each other. These nodes are usually organized
+in sets of layers, with signals moving in one direction
 (i.e. \textit{feed forward networks}) through weighted connections.
 Signals received on a single neuron are real numbers, and the output
-of a single neuron is the output of an aggregation of a non-linear function
-of the sum of its inputs. Thus, each neuron can be thought as a simple
-processing unit.  The weighted connections between nodes might have an
-excitatory or inhibitory effect, based on these weights which can be
-positive, negative or very close to zero, having no effect.
-\cite[Chap. ~ 1]{book:Gurney1997AnIT}.
+of a single neuron is the output of an aggregation of a non-linear
+function of the sum of its inputs. This function is called an
+\textit{activation function} and its results are propagated to all of
+the nodes outgoing connections.  Thus, each neuron can be thought as a
+simple processing unit. The weighted connections between nodes might
+have an excitatory or inhibitory effect, based on these weights which
+can be positive, negative or very close to zero, having no effect
+\cite[Chap. ~ 1]{book:Gurney1997AnIT}.  .  While training, training
+data is passed through the input layer and gets radically transformed
+through the layers until it reaches the output layer. The weights and
+other trainable parameters are then adjusted until the training data
+consistently reaches satisfactory results.
+
+\begin{figure}[h!]
+  \centering
+  % \input{tikz_figures/chap_nn/node_activation.tex}
+  \scalebox{.8}{\input{tikz_figures/chap_nn/simple_net.tex}}
+  \caption{A simple neural network demonstrating the layered structure and
+  and flow of data from input to output.}
+  \label{fig:simple_nn_demo}
+\end{figure}
+\newpage
+% \section{Backpropagation}
+\section{Mathematics of Artificial Neural Networks}
+\subsection{Building Blocks}
+% \begin{figure}[t!]
+%   \centering
+%   % \input{tikz_figures/chap_nn/node_activation.tex}
+%   \scalebox{.8}{\input{tikz_figures/chap_nn/simple_nn_weighted.tex}}
+%   \caption{A simple neural network demonstrating the layered structure and
+%   and flow of data from input to output.}
+%   \label{fig:nn_activation}
+% \end{figure}
+
+As mentioned before, the building blocks of ANNs are its artificial
+neurons organized into layers. In  \fref{fig:simple_nn_demo} a basic
+ANN is presented, demonstrating the different layers that are typically
+present in a feedforward neural network \footnote{Feedforward Neural Networks
+  (FNNs) are the simplest type of neural networks, with the information moving
+  only in one direction (``forward'' through the layers), without any loops or
+  cycles \cite{article:SCHMID}. Different types of neural networks are discussed
+  later.} while the building blocks are widely considered \cite{article:SCHMID} to
+be:
+\begin{itemize}
+\item \textbf{Input layer} This layer's purpose is to act as an
+  entrypoint to the neural network and performs no computations. Data moves from
+  this layer to the hidden layer succeeding it.
+\item \textbf{Hidden layer} Networks typically have one or more
+  hidden layers, in which some computation takes place. Data moves from the input
+  layer to a hidden layer where it is transformed and together with its weights
+  moves to the next hidden layer or the output layer.
+\item \textbf{Output layer} Transformed data ``exits'' the network here,
+  where it can pass through some function to reach the desired output
+  format
+\item \textbf{Edges and Weights} Each node in a layer is connected
+  to a set (usually all) of the nodes of the following layer with a
+  weighted edge. Signals from node $i$ of layer $k$ will be the input
+  of node $j$ of layer $l$, multiplied by a weight $W_{ij}$. 
+\item \textbf{Activation Functions} An activation function takes as
+  input some form of aggregate (usually the weighted sum) of the signals
+  arriving at a node and produces an output. This function is typically
+  nonlinear and differentiable for reasons which will be discussed later.
+\item \textbf{Learning} The learning process in a ANN involves modifying
+  its weights and other learnable parameters to improve the accuracy
+  of the result on the output layer. Learning usually involves a cost
+  function which is evaluated on a predefined basis and adjustments are
+  made accordingly. One of the most widespread learning techniques is
+  \textit{backpropagation}, where the error is propagated backwards
+  through the network.
+  
+\end{itemize}
+Along with the data from previous layers aggregated at a neuron, a bias
+is typically added which acts in the same way the intercept does in a
+linear equation. It adjusts the output of the activation function along
+with the weighted sum of the inputs to the neuron. It is also a trainable
+constant value provided to each node of a layer. Biases are node level
+parameters and do not depend on values provided by previous layers.
+
+All of the computations that take place in layer can be represented in
+a compact matrix form, as shown below.
+
+\begin{figure}[h!]
+  \centering
+  % \input{tikz_figures/chap_nn/node_activation.tex}
+  \scalebox{1}{\input{tikz_figures/chap_nn/nn_activation.tex}}
+  \caption{Input to a single neuron in a feedforward network. Here $\sigma$ represents
+    the activation function and the exponents represent layers. The activation of a layer
+    can be conveniently represented in matrix form. Biases are added to the input of the
+    node.}
+  \label{fig:nn_activation}
+\end{figure}
+
+% TODO: Describe deep learning (multiple layers?)
+
+\subsection{Types of the most common ANNs}
+
+\subsubsection{Feedforward Networks}
+
+\textbf{Feedforward neural networks (FNNs)} are the exemplary of ANNs, and the first to be
+conceived and created by Rosenblatt in 1958 with the creation of the
+perceptron \cite{article:Rosenblatt1958ThePA}. Their goal is to approximate
+some function $f^{*}$; i.e. a classifier uses the function
+$y=f^{*}(\bm{x})$ to map the input $\bm{x}$ to some category $y$. The
+goal of a feedforward network would then be to define a mapping
+$\bm{y} = f(\bm{x};~\bm{\theta})$ and train in a way that the values
+of the parameter vector $\bm{\theta}$ provide the best approximation of
+the function $f^{*}$.
+
+These networks are called feedforward as information flows from the input layer
+$\bm{x}$ through intermediate computational layers used to define $\bm{f}$ and
+finally to the output $\bm{y}$. There are no loops providing (called
+\textbf{feedback connections}) information from the output back into
+the input or other intermediate layers of the network.
+
+Feedforward networks can be thought as a chain of functions, composing
+the final structure of the network. As an example, consider a network
+with three of these functions as $f(\bm{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\bm{x})))$.
+In this case, the exponents denotes the layer, with $f^{(1)}$ beign the first
+layer, $f^{(2)}$ the second etc. The total number of these functions is called
+the \textbf{depth} of the NN and the terminology ``deep learning'' arose from
+this layered structure.
+
+During training the goal is to modify the parameters of the
+network in a way that $f(\bm{x})$ closely matches $f^*(\bm{x})$. The training
+set is composed of pairs of $\bm{x}$ and labels $y \approx f^*(\bm{x})$ and
+the output of the network is evaluated at different training points. Training
+data defines the exact result expected from each input $\bm{x}$, a value as close
+as possible to $y$. The rest of the layers can have arbitary behaviours as long
+as they transform the data in a way defined by the training goal. The
+learning algorithm can ``use'' them in any way that is useful to it, and
+the training data has no immediate effect on their behaviour. They are
+thus called \textbf{``hidden layers''} as they do not produce any
+useful output. 
+
+\subsubsection*{Common FNNs}
+% In feedforward neural networks, information flows from the input
+% \textbf{$x$} layer towards the output
+
+
+\subsection{Training}
+
 
 
 \newpage
 \subsection{Convolutional Neural Networks}
+\newpage
+
