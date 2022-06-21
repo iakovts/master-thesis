@@ -14,7 +14,7 @@ Calculus of the Ideas Immanent in Nervous Activity"}
 \cite{article:McCulloch1943} by Warren McCulloch and Walter Pitts, where
 they proposed a computationally functional model of neural networks.
 Their suggestions showed that in principle, any function a digital computer
-compute, a neural net should too. The models they described had weights
+can compute, a neural net should too. The models they described had weights
 and thresholds, but they lacked a training method. 
 
 The suggestions of McCulloch and Pitts lead Frank Rosenblatt to create
@@ -50,6 +50,7 @@ far superior for image classification tasks.
 In recent years, neural 
 
 
+\subsection{Basics}
 \subsubsection{Summary}
 
 One can think of ANNs as a directed graph, with a collection of nodes
@@ -65,7 +66,7 @@ the nodes outgoing connections.  Thus, each neuron can be thought as a
 simple processing unit. The weighted connections between nodes might
 have an excitatory or inhibitory effect, based on these weights which
 can be positive, negative or very close to zero, having no effect
-\cite[Chap. ~ 1]{book:Gurney1997AnIT}.  .  While training, training
+\cite[Chap. ~ 1]{book:Gurney1997AnIT}. While training, example
 data is passed through the input layer and gets radically transformed
 through the layers until it reaches the output layer. The weights and
 other trainable parameters are then adjusted until the training data
@@ -81,8 +82,7 @@ consistently reaches satisfactory results.
 \end{figure}
 \newpage
 % \section{Backpropagation}
-\section{Mathematics of Artificial Neural Networks}
-\subsection{Building Blocks}
+\subsubsection{Building Blocks}
 % \begin{figure}[t!]
 %   \centering
 %   % \input{tikz_figures/chap_nn/node_activation.tex}
@@ -143,41 +143,13 @@ a compact matrix form, as shown below.
   \centering
   % \input{tikz_figures/chap_nn/node_activation.tex}
   \scalebox{1}{\input{tikz_figures/chap_nn/nn_activation.tex}}
-  \caption{Input to a single neuron in a feedforward network. Here $\sigma$ represents
-    the activation function and the exponents represent layers. The activation of a layer
-    can be conveniently represented in matrix form. Biases are added to the input of the
-    node.}
+  \caption{Input to a single neuron in a feedforward network. Here
+    $\sigma$ represents the activation function (a sigmoid function in
+    this case) and the exponents represent layers. The activation of a
+    layer can be conveniently represented in matrix form. Biases are added
+    to the input of the node.}
   \label{fig:nn_activation}
 \end{figure}
-
-% TODO: Describe deep learning (multiple layers?)
-
-
-\subsection{Gradient Descent}\label{sec:gradient_descent}
-
-Gradient descent is a method of minimizing a function $f(x)$ and
-finding a local minimum, given that its differentiable. The
-derivative $f'(x)$ is the slope of $f(x)$ at $x$, so it specifies
-how a change in x would provide a step towards the local minimum. For instance,
-for small values of $\epsilon$, $f(x - \epsilon \sgn (f'(x)))$\footnote{
-  $\sgn$ is the \textit{signum function}, a piecewise function which returns
-  the sign of its input. (i.e. $\sgn(-1) = -1$ and $\sgn(12) = 1$).
-} is less than than $f(x)$ and traversing the slope to ever decreasing
-values if possible through following the direction with the opposite
-sign of the derivate. This method is called \textbf{gradient descent}
-and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
-
-
-
-
-\begin{figure}[h]
-  \centering
-  \input{tikz_figures/chap_nn/gradient_descent_3d.tex}
-  \caption{Gradient descent in three dimensional space}
-  \label{fig:gradient_descent_2d}
-\end{figure}
-
-\subsection{Types of the most common ANNs}
 
 \subsubsection{Feedforward Networks}
 
@@ -216,6 +188,195 @@ learning algorithm can ``use'' them in any way that is useful to it, and
 the training data has no immediate effect on their behaviour. They are
 thus called \textbf{``hidden layers''} as they do not produce any
 meaningful result, related to the function \cite[p.~160]{book:Goodfellow}. 
+
+
+% TODO: Describe deep learning (multiple layers?)
+\subsubsection{Perceptrons, learning algorithms and simple NNs}\label{sec:perceptron}
+
+The perceptron serves as great precursory example to
+neural networks, as it introduces many concepts that are
+common in more complex NN paradigms. Its in fact a simple
+neuron, a computational unit, which takes a binary vector
+as input and produces a binary output.
+
+\begin{figure}[h!]
+  \centering
+  \input{tikz_figures/chap_nn/simple_perceptron.tex}
+  \label{fig:simple_perceptron}
+  \caption{A simple perceptron}
+\end{figure}
+
+
+Inputs are multiplied with \textit{weights}, and the output
+of the neuron is either 0 or 1, determined by whether the
+weighted sum of its inputs $\sum_i w_i a_i$ is greater than
+a threshold value $threshold$. All of these numbers are real numbers
+and a parameter of the neuron itself. The algebraic form of
+this can be written as:
+
+
+
+\begin{equation*}
+  \text{Output} = \begin{cases}
+    0 &\text{if } \sum_i w_i a_i \leq \text{threshold} \\
+    1 &\text{if } \sum_i w_i a_i > \text{threshold}
+  \end{cases}
+\end{equation*}
+
+By modifying the values of the threshold, the output
+can be changed. The above equation can be written in
+a more compact form by replacing the sums with the dot
+product of the weights and the input vector,
+$\sum_i w_i a_i = \bm{w} \cdot \bm{a}$. Moving
+the threshold to the left side of the equation
+and replacing it by what is referred to as the \textit{bias}
+yields:
+
+\begin{equation*}
+  \text{Output} = \begin{cases}
+    0 & if \bm{w} \cdot \bm{a} + b \leq 0 \\
+    1 & if \bm{w} \cdot \bm{a} + b > 0
+  \end{cases}
+\end{equation*}
+
+where $b$ = - threshold. The bias can be seen as a measure
+of the tendency of the neuron to fire. Larger bias's numbers
+makes the neuron easy to activate and output 1, while smaller
+ones require larger inputs and positive weights. 
+
+\begin{remark}
+  As mentioned before, perceptrons are able to solve problems
+  which are linearly seperatable with the slope represented
+  by the $\bm{w} \cdot \bm{a}$ term and the bias acting as
+  the intercept. 
+  This excludes problems which are not, the most famous being
+  the classic XOR gate, as there does not exist one single
+  line capable of seperating the predictions.
+\end{remark}
+
+Multiple perceptrons can be combined in a network to compute any
+logical function, including the XOR gate. These kind of NNs are called
+\textit{multilayer perceptrons}, and they are the basis modern
+artificial neural networks. As discussed before, these neuros (or
+nodes) are organized in layers and can have a depth based on the
+number of these layers. Typically, at least 3 layers are present.
+
+\subsubsection*{Learning Algorithms}
+
+So far, the way perceptrons transform data through a function
+has been described, but while they can produce
+sensible results as any other computing device, weights and
+biases had to be manually configured. It is possible to introduce
+a learning algorithm which does the tuning of these parameters
+automatically, in response to input-output (training data) pairs.
+
+The perceptrons described used the Heaviside step function
+\cite{book:Abramowitz}, often denoted with $\textit{H}$. This function
+has a binary nature, with its output value being 0 or 1 based on a
+threshold, which presents a problem when fine tuning a perceptron or a
+NN based on them. Minor changes in a weight or bias value can
+completely alter the output trigger a perceptron to flip, and possibly
+changing the output of the whole network. A better choice for an
+activation function is the \textit{sigmoid function} $\sigma$ also
+called the \textit{logistic function}.
+
+\begin{figure}[h]
+  \begin{subfigure}[t]{0.5\textwidth}
+    \begin{equation}
+      \sigma (x) = \frac{1}{1 + e^{-x}}
+      \label{eq:sigmoid}
+    \end{equation}
+      \newline
+      \caption{Mathematical definition of the sigmoid function.}
+  \end{subfigure}
+  \hfill
+    \begin{subfigure}[c]{0.5\textwidth}
+      \scalebox{0.65}{\input{tikz_figures/chap_nn/sigmoid_plot.tex}}
+      \label{fig:sigmoid function and its derivative}
+      \caption{Plot of the sigmoid function, its first derivative and
+        the Heaviside step function.}
+  \end{subfigure}
+
+\end{figure}
+
+
+
+
+\section{Mathematics of Artificial Neural Networks}
+
+\subsection{Gradient Descent}\label{sec:gradient_descent}
+
+Gradient based optimizations methods are of great importance to
+NNs as they are most common method of training these models. They
+are tasked with minimizing or maximizing some function $f(\bm{x})$ which
+is oftenly called \textbf{objective function}. In NN training
+scenarios, where the goal is to minimize it the same function is also
+commonly called a \textbf{cost}, \textbf{loss} or \textbf{error}
+function\cite{book:Goodfellow}.
+
+Gradient descent is a method of minimizing a function $f(x)$ and
+finding a local minimum, given that its differentiable. The
+derivative $f'(x)$ is the slope of $f(x)$ at $x$, so it specifies
+how a change in x would provide a step towards the local minimum. For instance,
+for small values of $\epsilon$, $f(x - \epsilon \sgn (f'(x)))$\footnote{
+  $\sgn$ is the \textit{signum function}, a piecewise function which returns
+  the sign of its input or 0 if input is 0. (i.e. $\sgn(-1) = -1$ and $\sgn(12) = 1$).
+} is less than $f(x)$ and traversing the slope to ever decreasing
+values if possible through following the direction with the opposite
+sign of the derivate. This method is called \textbf{gradient descent}
+and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
+\begin{figure}[h!]
+  \centering
+  \input{tikz_figures/chap_nn/gradient_descent_3d.tex}
+  \caption{Gradient descent in three dimensional space}
+  \label{fig:gradient_descent_2d}
+\end{figure}
+
+\begin{definition}
+  Consider a multi-variable function $F(\bm{x})$ which is \textbf{defined}
+  and \textbf{differentiable} in a neighborhood of a point $a$. The value of
+  $F(\bm{x})$ will decrease the fastest when moving from $a$ towards the
+  negative gradient direction of $F$, which is $\bm{-\nabla} F(\bm{a})$.
+  Thus when:
+  \begin{equation}
+    \label{eq:grad_simple}
+    \bm{a}_{n+1} = \bm{a}_n - \gamma \nabla F(\bm{a}_n)
+  \end{equation}
+  then $F(\bm{a}_n) \geq F(\bm{a}_{n+1})$ and therefore the values
+  of $F(\bm{a})$ move towards the local minimum. A sequence
+  $\bm{x_0}, \bm{x_1}, \bm{x_2}, ... \bm{x_m}$ that follows the rule
+  set by \eref{eq:grad_simple} will lead to the monotic sequence
+  $F(\bm{x}_0) \geq F(\bm{x}_1) \geq F(\bm{x}_2), ...$ and the
+  sequence $\bm{x_n}$ will converge to the local minimum.
+  If some special choices are made for $\gamma$\footnotemark{} the function is
+  guaranteed to reach a local minimum. Additionaly, if the function
+  is \textit{convex} local minima are global minima and gradient descent
+  converges to a global solution.
+
+  For a function to be convex, a line segment connecting two of its points
+  must lay on or above its curve. Mathematically for two points $x_1$ and $x_2$,
+  this can be expressed as
+  \begin{equation}
+    \label{eq:convex_func}
+    f(\lambda x_1 + (1 - \lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2)
+  \end{equation}
+  where $\lambda$ is a location on a section line and $0 \leq \lambda \leq 1$.
+\end{definition}
+
+\footnotetext{$\gamma$ in machine learning is also known as the ``learning rate''
+  and its one of the hypermateres of NNs. Special choices made here include a selection
+  of $\gamma$ via line search which satisfies the Wolfe conditions or the Barzilai-Borwein
+  method \cite{book:optimization}
+}
+
+
+\subsection{Stochastic Gradient Descent (SGD)}\label{sec:stoch_grad_desc}
+
+
+
+\newpage
+\subsection{Types of the most common ANNs}
+
 
 \subsubsection*{Common FNNs}
 
