@@ -2,9 +2,9 @@
 
 \section{Background - Artificial Neural Networks}
 
-\subsection{Introduction}
+% \subsection{Introduction}
 
-\subsubsection{Historical Background}
+\subsection{Historical Background}
 
 \textbf{Artificial Neural Networks (ANN)}, or sometimes simply called
 \textbf{neural networks} is a class of computational models that mimic
@@ -40,84 +40,84 @@ Cresceptron \cite{article:Cresceptron} in 1992, a method of training
 large networks with pooling layers (\textbf{max-pooling}) and down-sampling.
 GPU\footnote{GPU - Graphics Processing Units is a specialized
 electronic circuit, a central part of modern computers which excels in
-efficient computation of algorithms which process large blocks of data
-parallelly, thus exceling in machine learning applications.} usage made
-possible the training of larger networks, while new types of networks
-emerged such as the \textbf{Recurrent Neural Networks (RNNs)}.
-\textbf{Convolutional Neural Networks} have recently proven to be
-far superior for image classification tasks.
+    efficient computation of algorithms which process large blocks of data
+    parallelly, thus exceling in machine learning applications.} usage made
+    possible the training of larger networks, while new types of networks
+    emerged such as the \textbf{Recurrent Neural Networks (RNNs)}.
+    \textbf{Convolutional Neural Networks} have recently proven to be
+    far superior for image classification tasks.
 
-In recent years, neural 
+    In recent years, neural 
 
 
-\subsection{Basics}
-\subsubsection{Summary}
+    \subsection{Basics}
+    \subsubsection{Summary}
 
-One can think of ANNs as a directed graph, with a collection of nodes
-which are densely connected (called \textbf{artificial neurons}),
-transimiting signals to each other. These nodes are usually organized
-in sets of layers, with signals moving in one direction
-(i.e. \textit{feed forward networks}) through weighted connections.
-Signals received on a single neuron are real numbers, and the output
-of a single neuron is the output of an aggregation of a non-linear
-function of the sum of its inputs. This function is called an
-\textit{activation function} and its results are propagated to all of
-the nodes outgoing connections.  Thus, each neuron can be thought as a
-simple processing unit. The weighted connections between nodes might
-have an excitatory or inhibitory effect, based on these weights which
-can be positive, negative or very close to zero, having no effect
-\cite[Chap. ~ 1]{book:Gurney1997AnIT}. While training, example
-data is passed through the input layer and gets radically transformed
-through the layers until it reaches the output layer. The weights and
-other trainable parameters are then adjusted until the training data
-consistently reaches satisfactory results.
+    One can think of ANNs as a directed graph, with a collection of nodes
+    which are densely connected (called \textbf{artificial neurons}),
+    transimiting signals to each other. These nodes are usually organized
+    in sets of layers, with signals moving in one direction
+    (i.e. \textit{feed forward networks}) through weighted connections.
+    Signals received on a single neuron are real numbers, and the output
+    of a single neuron is the output of an aggregation of a non-linear
+    function of the sum of its inputs. This function is called an
+    \textit{activation function} and its results are propagated to all of
+    the nodes outgoing connections.  Thus, each neuron can be thought as a
+    simple processing unit. The weighted connections between nodes might
+    have an excitatory or inhibitory effect, based on these weights which
+    can be positive, negative or very close to zero, having no effect
+    \cite[Chap. ~ 1]{book:Gurney1997AnIT}. While training, example
+    data is passed through the input layer and gets radically transformed
+    through the layers until it reaches the output layer. The weights and
+    other trainable parameters are then adjusted until the training data
+    consistently reaches satisfactory results.
 
-\begin{figure}[h!]
-  \centering
-  % \input{tikz_figures/chap_nn/node_activation.tex}
-  \scalebox{.8}{\input{tikz_figures/chap_nn/simple_net.tex}}
-  \caption{A simple neural network demonstrating the layered structure and
-  and flow of data from input to output.}
-  \label{fig:simple_nn_demo}
-\end{figure}
-\newpage
-% \section{Backpropagation}
-\subsubsection{Building Blocks}
-% \begin{figure}[t!]
-%   \centering
-%   % \input{tikz_figures/chap_nn/node_activation.tex}
-%   \scalebox{.8}{\input{tikz_figures/chap_nn/simple_nn_weighted.tex}}
-%   \caption{A simple neural network demonstrating the layered structure and
-%   and flow of data from input to output.}
-%   \label{fig:nn_activation}
-% \end{figure}
+    \begin{figure}[h!]
+    \centering
+    % \input{tikz_figures/chap_nn/node_activation.tex}
+    \scalebox{.8}{\input{tikz_figures/chap_nn/simple_net.tex}}
+    \caption{A simple neural network demonstrating the layered structure and
+    and flow of data from input to output.}
+    \label{fig:simple_nn_demo}
+    \end{figure}
+    \newpage
+    % \section{Backpropagation}
+    \subsubsection{Building Blocks}
+    % \begin{figure}[t!]
+    %   \centering
+    %   % \input{tikz_figures/chap_nn/node_activation.tex}
+    %   \scalebox{.8}{\input{tikz_figures/chap_nn/simple_nn_weighted.tex}}
+    %   \caption{A simple neural network demonstrating the layered structure and
+    %   and flow of data from input to output.}
+    %   \label{fig:nn_activation}
+    % \end{figure}
 
-As mentioned before, the building blocks of ANNs are its artificial
-neurons organized into layers. In  \fref{fig:simple_nn_demo} a basic
-ANN is presented, demonstrating the different layers that are typically
-present in a feedforward neural network \footnote{Feedforward Neural Networks
-  (FNNs) are the simplest type of neural networks, with the information moving
-  only in one direction (``forward'' through the layers), without any loops or
-  cycles \cite{article:SCHMID}. Different types of neural networks are discussed
-  later.} while the building blocks are widely considered \cite{article:SCHMID} to
-be:
-\begin{itemize}
-\item \textbf{Input layer} This layer's purpose is to act as an
-  entrypoint to the neural network and performs no computations. Data moves from
-  this layer to the hidden layer succeeding it.
-\item \textbf{Hidden layer} Networks typically have one or more
-  hidden layers, in which some computation takes place. Data moves from the input
-  layer to a hidden layer where it is transformed and together with its weights
-  moves to the next hidden layer or the output layer.
-\item \textbf{Output layer} Transformed data ``exits'' the network here,
-  where it can pass through some function to reach the desired output
-  format
-\item \textbf{Edges and Weights} Each node in a layer is connected
-  to a set (usually all) of the nodes of the following layer with a
-  weighted edge. Signals from node $i$ of layer $k$ will be the input
-  of node $j$ of layer $l$, multiplied by a weight $W_{ij}$. 
-\item \textbf{Activation Functions} An activation function takes as
-  input some form of aggregate (usually the weighted sum) of the signals
+    As mentioned before, the building blocks of ANNs are its artificial
+    neurons organized into layers. In  \fref{fig:simple_nn_demo} a basic
+    ANN is presented, demonstrating the different layers that are typically
+    present in a feedforward neural network \footnote{Feedforward Neural Networks
+    (FNNs) are the simplest type of neural networks, with the information moving
+    only in one direction (``forward'' through the layers), without any loops or
+    cycles \cite{article:SCHMID}. Different types of neural networks are discussed
+    later.} while the building blocks are widely considered \cite{article:SCHMID} to
+    be:
+    \begin{itemize}
+    \item \textbf{Input layer} This layer's purpose is to act as an
+    entrypoint to the neural network and performs no computations. Data moves from
+    this layer to the hidden layer succeeding it.
+    \item \textbf{Hidden layer} Networks typically have one or more
+    hidden layers, in which some computation takes place. Data moves from the input
+    layer to a hidden layer where it is transformed and together with its weights
+    moves to the next hidden layer or the output layer.
+    \item \textbf{Output layer} Transformed data ``exits'' the network here,
+    where it can pass through some function to reach the desired output
+    format
+    \item \textbf{Edges and Weights} Each node in a layer is connected
+    to a set (usually all) of the nodes of the following layer with a
+    weighted edge. Data from nodes $1 ... n$ of layer $k$ will be the input
+    of node $j$ of layer $l$, multiplied by a weight $W_{ij}$. 
+    \item \textbf{Activation Functions} An activation function takes as
+    input some form of aggregate (usually the weighted sum) of the signals
   arriving at a node and produces an output. This function is typically
   nonlinear and differentiable for reasons which will be discussed later.
 \item \textbf{Learning} The learning process in a ANN involves modifying
@@ -136,20 +136,82 @@ with the weighted sum of the inputs to the neuron. It is also a trainable
 constant value provided to each node of a layer. Biases are node level
 parameters and do not depend on values provided by previous layers.
 
-All of the computations that take place in layer can be represented in
-a compact matrix form, as shown below.
 
+\subsection{Mathematics useful in ANNs}
+
+In this section some mathematical constructs which are widely
+used in machine learening and ANNs are briefly presented.
+
+\subsubsection{Gradient Descent}\label{sec:gradient_descent}
+
+Gradient based optimizations methods are of great importance to
+NNs as they are most common method of training these models. They
+are tasked with minimizing or maximizing some function $f(\bm{x})$ which
+is oftenly called \textbf{objective function}. In NN training
+scenarios, where the goal is to minimize it the same function is also
+commonly called a \textbf{cost}, \textbf{loss} or \textbf{error}
+function\cite{book:Goodfellow}.
+
+Gradient descent is a method of minimizing a function $f(x)$ and
+finding a local minimum, given that its differentiable. The
+derivative $f'(x)$ is the slope of $f(x)$ at $x$, so it specifies
+how a change in x would provide a step towards the local minimum. For instance,
+for small values of $\epsilon$, $f(x - \epsilon \sgn (f'(x)))$\footnote{
+  $\sgn$ is the \textit{signum function}, a piecewise function which returns
+  the sign of its input or 0 if input is 0. (i.e. $\sgn(-1) = -1$ and $\sgn(12) = 1$).
+} is less than $f(x)$ and traversing the slope to ever decreasing
+values if possible through following the direction with the opposite
+sign of the derivate. This method is called \textbf{gradient descent}
+and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
 \begin{figure}[h!]
   \centering
-  % \input{tikz_figures/chap_nn/node_activation.tex}
-  \scalebox{1}{\input{tikz_figures/chap_nn/nn_activation.tex}}
-  \caption{Input to a single neuron in a feedforward network. Here
-    $\sigma$ represents the activation function (a sigmoid function in
-    this case) and the exponents represent layers. The activation of a
-    layer can be conveniently represented in matrix form. Biases are added
-    to the input of the node.}
-  \label{fig:nn_activation}
+  \input{tikz_figures/chap_nn/gradient_descent_3d.tex}
+  \caption{Gradient descent in three dimensional space}
+  \label{fig:gradient_descent_2d}
 \end{figure}
+
+\begin{definition}
+  Consider a multi-variable function $F(\bm{x})$ which is \textbf{defined}
+  and \textbf{differentiable} in a neighborhood of a point $a$. The value of
+  $F(\bm{x})$ will decrease the fastest when moving from $a$ towards the
+  negative gradient direction of $F$, which is $\bm{-\nabla} F(\bm{a})$.
+  Thus when:
+  \begin{equation}
+    \label{eq:grad_simple}
+    \bm{a}_{n+1} = \bm{a}_n - \gamma \nabla F(\bm{a}_n)
+  \end{equation}
+  then $F(\bm{a}_n) \geq F(\bm{a}_{n+1})$ and therefore the values
+  of $F(\bm{a})$ move towards the local minimum. A sequence
+  $\bm{x_0}, \bm{x_1}, \bm{x_2}, ... \bm{x_m}$ that follows the rule
+  set by \eref{eq:grad_simple} will lead to the monotic sequence
+  $F(\bm{x}_0) \geq F(\bm{x}_1) \geq F(\bm{x}_2), ...$ and the
+  sequence $\bm{x_n}$ will converge to the local minimum.
+  If some special choices are made for $\gamma$\footnotemark{} the function is
+  guaranteed to reach a local minimum. Additionaly, if the function
+  is \textit{convex} local minima are global minima and gradient descent
+  converges to a global solution.
+
+  For a function to be convex, a line segment connecting two of its points
+  must lay on or above its curve. Mathematically for two points $x_1$ and $x_2$,
+  this can be expressed as
+  \begin{equation}
+    \label{eq:convex_func}
+    f(\lambda x_1 + (1 - \lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2)
+  \end{equation}
+  where $\lambda$ is a location on a section line and $0 \leq \lambda \leq 1$.
+\end{definition}
+
+\footnotetext{$\gamma$ in machine learning is also known as the ``learning rate''
+  and its one of the hypermateres of NNs. Special choices made here include a selection
+  of $\gamma$ via line search which satisfies the Wolfe conditions or the Barzilai-Borwein
+  method \cite{book:optimization}
+}
+
+
+% \subsection{Stochastic Gradient Descent (SGD)}\label{sec:stoch_grad_desc}
+
+
+
 
 \subsubsection{Feedforward Networks}
 
@@ -261,7 +323,7 @@ artificial neural networks. As discussed before, these neuros (or
 nodes) are organized in layers and can have a depth based on the
 number of these layers. Typically, at least 3 layers are present.
 
-\subsubsection*{Learning Algorithms}
+\subsubsection*{Usefullness of activation functions}
 
 So far, the way perceptrons transform data through a function
 has been described, but while they can produce
@@ -278,12 +340,13 @@ NN based on them. Minor changes in a weight or bias value can
 completely alter the output trigger a perceptron to flip, and possibly
 changing the output of the whole network. A better choice for an
 activation function is the \textit{sigmoid function} $\sigma$ also
-called the \textit{logistic function}.
+called the \textit{logistic function} which replaces the perceptron
+with the sigmoid neuron \cite{book:nielsen}.
 
 \begin{figure}[h]
   \begin{subfigure}[t]{0.5\textwidth}
     \begin{equation}
-      \sigma (x) = \frac{1}{1 + e^{-x}}
+      \sigma (x) = \frac{1}{1 + e^{-x}} = \frac{1}{1 + exp(-\sum_jw_jx_j-b)}
       \label{eq:sigmoid}
     \end{equation}
       \newline
@@ -299,80 +362,30 @@ called the \textit{logistic function}.
 
 \end{figure}
 
+For very negative and very positive values of the inputs, the sigmoid approximates
+the behaviour of the step function, while for inputs around a neighborhood of 0
+it differs by offering a smooth transition between 0 and 1 as an output. It also
+is a differentiable function.
+This properties allows an approximation of the output when the weights and
+biases change slightly as:
+\begin{equation*}
+  \Delta_{\text{output}} \approx \sum_j\frac{\partial{\text{output}}}{\partial w_j} \Delta w_j + \frac{\partial{\text{output}}}{\partial b}\Delta b
+\end{equation*}
 
+All of the computations that take place in layer can be represented in
+a compact matrix form, as shown below.
 
-
-\section{Mathematics of Artificial Neural Networks}
-
-\subsection{Gradient Descent}\label{sec:gradient_descent}
-
-Gradient based optimizations methods are of great importance to
-NNs as they are most common method of training these models. They
-are tasked with minimizing or maximizing some function $f(\bm{x})$ which
-is oftenly called \textbf{objective function}. In NN training
-scenarios, where the goal is to minimize it the same function is also
-commonly called a \textbf{cost}, \textbf{loss} or \textbf{error}
-function\cite{book:Goodfellow}.
-
-Gradient descent is a method of minimizing a function $f(x)$ and
-finding a local minimum, given that its differentiable. The
-derivative $f'(x)$ is the slope of $f(x)$ at $x$, so it specifies
-how a change in x would provide a step towards the local minimum. For instance,
-for small values of $\epsilon$, $f(x - \epsilon \sgn (f'(x)))$\footnote{
-  $\sgn$ is the \textit{signum function}, a piecewise function which returns
-  the sign of its input or 0 if input is 0. (i.e. $\sgn(-1) = -1$ and $\sgn(12) = 1$).
-} is less than $f(x)$ and traversing the slope to ever decreasing
-values if possible through following the direction with the opposite
-sign of the derivate. This method is called \textbf{gradient descent}
-and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
 \begin{figure}[h!]
   \centering
-  \input{tikz_figures/chap_nn/gradient_descent_3d.tex}
-  \caption{Gradient descent in three dimensional space}
-  \label{fig:gradient_descent_2d}
+  % \input{tikz_figures/chap_nn/node_activation.tex}
+  \scalebox{1}{\input{tikz_figures/chap_nn/nn_activation.tex}}
+  \caption{Input to a single neuron in a feedforward network. Here
+    $\sigma$ represents the activation function (a sigmoid function in
+    this case) and the exponents represent layers. The activation of a
+    layer can be conveniently represented in matrix form. Biases are added
+    to the input of the node.}
+  \label{fig:nn_activation}
 \end{figure}
-
-\begin{definition}
-  Consider a multi-variable function $F(\bm{x})$ which is \textbf{defined}
-  and \textbf{differentiable} in a neighborhood of a point $a$. The value of
-  $F(\bm{x})$ will decrease the fastest when moving from $a$ towards the
-  negative gradient direction of $F$, which is $\bm{-\nabla} F(\bm{a})$.
-  Thus when:
-  \begin{equation}
-    \label{eq:grad_simple}
-    \bm{a}_{n+1} = \bm{a}_n - \gamma \nabla F(\bm{a}_n)
-  \end{equation}
-  then $F(\bm{a}_n) \geq F(\bm{a}_{n+1})$ and therefore the values
-  of $F(\bm{a})$ move towards the local minimum. A sequence
-  $\bm{x_0}, \bm{x_1}, \bm{x_2}, ... \bm{x_m}$ that follows the rule
-  set by \eref{eq:grad_simple} will lead to the monotic sequence
-  $F(\bm{x}_0) \geq F(\bm{x}_1) \geq F(\bm{x}_2), ...$ and the
-  sequence $\bm{x_n}$ will converge to the local minimum.
-  If some special choices are made for $\gamma$\footnotemark{} the function is
-  guaranteed to reach a local minimum. Additionaly, if the function
-  is \textit{convex} local minima are global minima and gradient descent
-  converges to a global solution.
-
-  For a function to be convex, a line segment connecting two of its points
-  must lay on or above its curve. Mathematically for two points $x_1$ and $x_2$,
-  this can be expressed as
-  \begin{equation}
-    \label{eq:convex_func}
-    f(\lambda x_1 + (1 - \lambda)x_2) \leq \lambda f(x_1) + (1-\lambda)f(x_2)
-  \end{equation}
-  where $\lambda$ is a location on a section line and $0 \leq \lambda \leq 1$.
-\end{definition}
-
-\footnotetext{$\gamma$ in machine learning is also known as the ``learning rate''
-  and its one of the hypermateres of NNs. Special choices made here include a selection
-  of $\gamma$ via line search which satisfies the Wolfe conditions or the Barzilai-Borwein
-  method \cite{book:optimization}
-}
-
-
-\subsection{Stochastic Gradient Descent (SGD)}\label{sec:stoch_grad_desc}
-
-
 
 \newpage
 \subsection{Types of the most common ANNs}
