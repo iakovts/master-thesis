@@ -18,8 +18,8 @@ sigmap(\x)=sigma(\x)*(1-sigma(\x));}]
     \addplot[blue,mark=none]   (x,{sigma(x)});
     \addplot[red,dotted,mark=none]   (x,{sigmap(x)});
     % \addplot[green,mark=none] {(-6, 0), (-0.2, 0), (0.2, 1), (6, 1)};
-    \addplot[green, mark=*, mark options={fill=white}, samples at={-6, 0}] {0};
-    \addplot[green, mark=*, samples at={0, 6}] {1};
+    \addplot[cyan!80, mark=*, mark options={fill=white}, samples at={-6, 0}] {0};
+    \addplot[cyan!80, mark=*, samples at={0, 6}] {1};
     \legend{$\sigma(x)$,$\sigma'(x)$, $\textit{H(x)}$}
 \end{axis}
 \end{tikzpicture}

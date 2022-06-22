@@ -137,12 +137,12 @@ constant value provided to each node of a layer. Biases are node level
 parameters and do not depend on values provided by previous layers.
 
 
-\subsection{Mathematics useful in ANNs}
+\section{Mathematics useful in ANNs}
 
 In this section some mathematical constructs which are widely
 used in machine learening and ANNs are briefly presented.
 
-\subsubsection{Gradient Descent}\label{sec:gradient_descent}
+\subsection{Gradient Descent}\label{sec:gradient_descent}
 
 Gradient based optimizations methods are of great importance to
 NNs as they are most common method of training these models. They
@@ -206,6 +206,17 @@ and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
   of $\gamma$ via line search which satisfies the Wolfe conditions or the Barzilai-Borwein
   method \cite{book:optimization}
 }
+\subsection{Hadamard Product}\label{sec:hadamard}
+The \textbf{Hadamard product}, also known as the \textbf{element-wise
+product} is a matrix operation in which two matrices of the same
+dimensions are multiplied to produce a matrix of equal dimensions,
+where its $i,j$ elements are the product of elements $i, j$ of the
+original two matrices. For two matrices A and B of dimensions $m\times
+n$ the Hamarand product can be written as:
+\begin{equation}
+  \label{eq:hamarand}
+  (A \odot B)_{ij} = (A)_{ij}(B)_{ij}
+\end{equation}
 
 
 % \subsection{Stochastic Gradient Descent (SGD)}\label{sec:stoch_grad_desc}
@@ -213,7 +224,7 @@ and it was first proposed by Cauchy \cite{article:Cauchy} in 1847.
 
 
 
-\subsubsection{Feedforward Networks}
+\section{Feedforward Networks}
 
 \textbf{Feedforward neural networks (FNNs)} are the exemplary of ANNs, and the first to be
 conceived and created by Rosenblatt in 1958 with the creation of the
@@ -234,7 +245,7 @@ the input or other intermediate layers of the network.
 Feedforward networks can be thought as a chain of functions, composing
 the final structure of the network. As an example, consider a network
 with three of these functions as $f(\bm{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\bm{x})))$.
-In this case, the exponents denotes the layer, with $f^{(1)}$ beign the first
+In this case, the exponents denotes the layer, with $f^{(1)}$ being the first
 layer, $f^{(2)}$ the second etc. The total number of these functions is called
 the \textbf{depth} of the NN and the terminology ``deep learning'' arose from
 this layered structure.
@@ -253,11 +264,11 @@ meaningful result, related to the function \cite[p.~160]{book:Goodfellow}.
 
 
 % TODO: Describe deep learning (multiple layers?)
-\subsubsection{Perceptrons, learning algorithms and simple NNs}\label{sec:perceptron}
+\subsection{Perceptrons, learning algorithms and simple NNs}\label{sec:perceptron}
 
 The perceptron serves as great precursory example to
 neural networks, as it introduces many concepts that are
-common in more complex NN paradigms. Its in fact a simple
+common in more complex NN paradigms. It is in fact a simple
 neuron, a computational unit, which takes a binary vector
 as input and produces a binary output.
 
@@ -302,7 +313,7 @@ yields:
 \end{equation*}
 
 where $b$ = - threshold. The bias can be seen as a measure
-of the tendency of the neuron to fire. Larger bias's numbers
+of the tendency of the neuron to fire. Larger bias numbers
 makes the neuron easy to activate and output 1, while smaller
 ones require larger inputs and positive weights. 
 
@@ -319,11 +330,11 @@ ones require larger inputs and positive weights.
 Multiple perceptrons can be combined in a network to compute any
 logical function, including the XOR gate. These kind of NNs are called
 \textit{multilayer perceptrons}, and they are the basis modern
-artificial neural networks. As discussed before, these neuros (or
+artificial neural networks. As discussed before, these neurons (or
 nodes) are organized in layers and can have a depth based on the
 number of these layers. Typically, at least 3 layers are present.
 
-\subsubsection*{Usefullness of activation functions}
+\subsection*{A more practical activation function}
 
 So far, the way perceptrons transform data through a function
 has been described, but while they can produce
@@ -337,29 +348,25 @@ The perceptrons described used the Heaviside step function
 has a binary nature, with its output value being 0 or 1 based on a
 threshold, which presents a problem when fine tuning a perceptron or a
 NN based on them. Minor changes in a weight or bias value can
-completely alter the output trigger a perceptron to flip, and possibly
+completely alter the output and trigger a perceptron to flip, possibly
 changing the output of the whole network. A better choice for an
 activation function is the \textit{sigmoid function} $\sigma$ also
 called the \textit{logistic function} which replaces the perceptron
 with the sigmoid neuron \cite{book:nielsen}.
 
+The sigmoid function is defined as:
+\begin{equation}
+    \sigma (x) = \frac{1}{1 + e^{-x}} = \frac{1}{1 + exp(-\sum_jw_jx_j-b)}
+    \label{eq:sigmoid}
+\end{equation}
+It is easy to see the differences between these two functions when
+plotted:
 \begin{figure}[h]
-  \begin{subfigure}[t]{0.5\textwidth}
-    \begin{equation}
-      \sigma (x) = \frac{1}{1 + e^{-x}} = \frac{1}{1 + exp(-\sum_jw_jx_j-b)}
-      \label{eq:sigmoid}
-    \end{equation}
-      \newline
-      \caption{Mathematical definition of the sigmoid function.}
-  \end{subfigure}
-  \hfill
-    \begin{subfigure}[c]{0.5\textwidth}
-      \scalebox{0.65}{\input{tikz_figures/chap_nn/sigmoid_plot.tex}}
+  \centering
+      \scalebox{1}{\input{tikz_figures/chap_nn/sigmoid_plot.tex}}
       \label{fig:sigmoid function and its derivative}
       \caption{Plot of the sigmoid function, its first derivative and
         the Heaviside step function.}
-  \end{subfigure}
-
 \end{figure}
 
 For very negative and very positive values of the inputs, the sigmoid approximates
@@ -371,11 +378,13 @@ biases change slightly as:
 \begin{equation*}
   \Delta_{\text{output}} \approx \sum_j\frac{\partial{\text{output}}}{\partial w_j} \Delta w_j + \frac{\partial{\text{output}}}{\partial b}\Delta b
 \end{equation*}
+This provides an estimation of how small changes in the biases and weights
+will affect the output of the sigmoid neuron, making choices for their values
+easy to calculate. 
 
-All of the computations that take place in layer can be represented in
-a compact matrix form, as shown below.
-
-\begin{figure}[h!]
+As stated before, all of the computations that take place on a neuron
+can be represented in a compact matrix form, as shown in \fref{fig:nn_activation}.
+\begin{figure}[!h]
   \centering
   % \input{tikz_figures/chap_nn/node_activation.tex}
   \scalebox{1}{\input{tikz_figures/chap_nn/nn_activation.tex}}
@@ -386,6 +395,235 @@ a compact matrix form, as shown below.
     to the input of the node.}
   \label{fig:nn_activation}
 \end{figure}
+
+\newpage
+\subsection*{Learning}
+
+Before defining how training works for a neural network, it is
+imperative to describe an algorithm of quantifying far from the
+target output the network is with its current biases and weights.
+This algorithm is the \textit{cost function} described in \sref{sec:gradient_descent}.
+
+If for all inputs in a vector $\bm{x}$ the desired output is known and is
+the output of some function $f^{*}(\bm{x}) ~\text{or}~ y(\bm{x})$ and the
+cost function can be defined as:
+% \newpage
+\begin{equation}
+  \label{eq:cost_func_simple}
+  C(\bm{w}, \bm{b}) = \frac{1}{2n} \sum_x ||y(\bm{x}) - \bm{a}||^2
+\end{equation}
+
+In this equation, $\bm{w}~\text{and}~\bm{b}$ are the weights and biases
+of the network respectively and $\bm{a}$ is a vector of the outputs when
+$\bm{x}$ is the input.
+
+This cost function is also known as \textit{quadratic} or \textit{mean
+  squared error (MSE)} and it is one of the most commonly used loss
+functions. 
+The goal of training is to minimize this function, and to achieve this
+gradient descent and variations of this method are used.
+
+Applying gradient descent to \eref{eq:cost_func_simple} yields:
+\begin{equation}
+  \label{eq:cost_func_grad}
+  \nabla C = \frac{1}{n} \sum_x\nabla C_x
+\end{equation}
+where $x$ are the training samples.
+
+\subsubsection*{Stochastic Gradient Descent (SGD)}
+One of the most common variations is \textit{Stochastic Gradient
+Descent (SGD)}. As training sets get larger, they become
+computationally expensive especially considering that in
+\eref{eq:cost_func_simple}, the total cost function $C =
+\frac{1}{n}\sum_x C_x$, averaging the costs of each training sample.
+The gradient of this function requires the computation of each $\nabla
+C_x$ for each sample and then averaging them as $\nabla C =
+\frac{1}{n}\sum_x\nabla C_x$ which can be prohibitive timewise.
+
+SGD offers a solution to this problem, by drastically simplifying
+the above process; instead of finding the exact value of $\nabla C$
+, it estimates its value by randomly picking one sample \cite{article:bottou}.
+This stochastic approximation adds noise, but it has been proven to
+almost ensure convergence under mild conditions \cite{book:robbins}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=.8\textwidth]{Figures/chap_nn/gradient_stoch.png}
+  \caption{Noisy convergence of SGD compared to non-stochastic. Image
+source \cite{article:image_gradient}.}
+  \label{fig:gradient_descent_noisy}
+\end{figure}
+
+A smoother convergence by choosing a small number $m$ of samples which
+is called a \textbf{mini-batch} and is the method most commonly used as
+it offers a compromise between speed and smoothness of convergence.
+In this case, \eref{eq:cost_func_grad} becomes:
+\begin{equation}
+  \label{eq:cost_func_stoch}
+  \nabla C \approx \frac{1}{m} \sum_{i=1}^m \nabla C_{X_j}
+\end{equation}
+
+\subsubsection*{Training rules}
+
+We can then define a training rule for the network in terms of
+weights and biases and using the gradient of the cost function.
+Applying SGD on \eref{eq:cost_func_simple} provides
+the values of weights $w_k$  and biases $b_l$ that minimizes it. An update rule
+for them can now be defined in terms of the cost function:
+\begin{align}
+  w_k \rightarrow w^{'}_k &= w_k - \frac{\eta}{m}\sum_j \frac{\partial C_{x_j}}{\partial w_k} \nonumber \\
+  b_l \rightarrow b^{'}_l &= b_l - \frac{\eta}{m}\sum_j \frac{\partial C_{x_j}}{\partial b_l}
+  \label{eq:yolo}
+\end{align}
+
+where $\eta$ is a small positive value, the \textbf{learning rate}. 
+
+Having described the above, the process of training the NN can be summarized as:
+\begin{enumerate}
+\item The SGD is calculated for a random set number of training samples, the mini-batch.
+\item Weights and biases are updated based on \eref{eq:yolo}.
+\item The previous two steps are repeated until the training samples are exhausted.
+\item When all samples are exhausted, the training \textbf{epoch} is complete, and the
+  process starts again from the first step.
+\item Training is usually said to be complete, when the value of  the cost function
+  is below a set threshold. The NN is now considered trained.
+\end{enumerate}
+
+\subsection{Backpropagation}
+
+\textbf{NOTE: }Briefly describe backprop here
+% Ultimately the goal of backpropagation is to compute the % partial
+%derivatives $\frac{\partial C_X}{\partial w^l_{jk}} \text{and} \frac{\partial
+% C_X}{partial b^l_{j}}$
+
+
+\subsubsection*{Matrix Notation}
+
+Before introducing the equations of backpropagation, it is
+important to present a matrix notation for quantities in a
+network which are used widely and unambigiuous. Consider the
+equations presented in \fref{fig:nn_activation}. For a network
+with $m$ layers, the connection of the $k^{th}$ neuron in the
+$(l-1)^{th}$ layer with $j^{th}$ node in $l^{th}$ layer can be
+written as $w_{jk}^l$. In a similar fashion, the bias of the
+$j^{th}$ node in the $l^{th}$ layer can be represented as $b^l_j$
+and the \textit{activation}\footnote{The activation of a neuron
+  simply refers to the output of the activation function, taking as
+  input the weighted sum of the inputs and the bias $a' = \sigma(wa +
+  b)$
+} of the same node is $a_j^l$. With this representations declared
+it is possible to define the matrix representation of a layer $l$ as:
+\begin{equation}
+  \label{eq:layer}
+  \bm{a^l} = \sigma(\bm{w^l} \bm{a^{l-1}} + \bm{b^l})
+\end{equation}
+
+where $\sigma$ is the activation function. At this point the
+intermediate quantity $\bm{z^l} = \bm{w^la^{l-1}} + \bm{b^l}
+\rightarrow \bm{a^l} = \sigma(\bm{z^l})$ commonly called the
+\textit{weighted input} is worth declaring.
+
+\subsubsection*{Fundamentals of Backpropagation}
+
+Backpropagation has two special requirements for the
+cost function. The first is that it must be able to be
+written as an average $C = \frac{1}{n} \sum_XC_X$ of the
+cost functions of individual training samples $x$. This
+ensures that after computing the partial derivatives
+$\frac{\partial C_X}{\partial w} \text{and} \frac{\partial C_X}{partial b}$
+over the training set, it is possible to calculate 
+$\frac{\partial C}{\partial w} \text{and} \frac{\partial C}{partial b}$
+by averaging over the set.
+
+The second requirement is that the cost function $C$ can be
+written as a function of the outputs of the NN. For example,
+the MSE cost function described in \eref{eq:cost_func_simple}
+for a single training example can be written as
+\begin{equation}
+  \label{eq:backprop_mse}
+  C = \frac{1}{2}||\bm{y} - \bm{a^L}|| = \frac{1}{2}\sum_j(y_j - a^L_j)^2
+\end{equation}
+
+which in fact can be regarded a function of the outputs $\bm{a^L}$ alone,
+as the training examples $y(x)$ have fixed values. Note that $L$ denotes the
+number of layers in the networks.
+
+\subsubsection*{Equations of backpropagation}
+
+Before declaring the fundamental equations of backpropagation,
+an important intermediate quantity called the \textbf{error} $\delta_j^l$
+must be declared. In a neuron $j$, during activation, a small quantity $\Delta z_j^l$
+is added as input and the neuron outputs $\sigma (z^l_j + \Delta z_j^l)$.
+This error is propagated through the network and finally
+the overall cost changes by $\frac{\partial C}{\partial z_j^l}\Delta z_j^l$.
+The error can the be defined as:
+\begin{equation}
+  \label{eq:error_nn}
+  \delta_j^l \equiv \frac{\partial C}{\partial z_j^l}
+\end{equation}
+
+
+The fundamentals equations which govern the backpropagation process
+are described below.
+\begin{enumerate}
+\item
+  The first equation describes the error in the
+  \textbf{output layer}:
+  \begin{equation}
+    \delta^L_j = \frac{\partial C}{\partial a_j^L} \sigma'(z_j^L)
+  \end{equation}
+  or equivalently in matrix form:
+  \begin{equation}
+    \label{eq:error_output}
+    \delta^L = \bm{\nabla_a C} \odot \sigma' (\bm{z^L})
+  \end{equation}
+\item
+  An equation for the error in terms of the error in the
+  \textbf{next layer}:
+  \begin{equation}
+    \label{eq:error_layer}
+    \delta^l = ((\bm{w^{l+1}})^T\bm{\delta^{l+1}})\odot \sigma'(\bm{z^l})
+  \end{equation}
+  This equation is convenient as it propagates the error backwards
+  in the network. Knowning the error in the $(l+1)^{th}$ layer and
+  by transposing the weight matrix the error can then move backwards
+  through the activation function in layer $l$. This process can be
+  repeated all the way back.
+\item
+  An equation describing the rate of change of the cost with respect to \textbf{biases}
+  in the network:
+  \begin{equation}
+    \label{eq:error_bias}
+    \frac{\partial C}{\partial b_j^l} = \delta^l_j \xrightarrow{\ref{eq:error_layer},~~ \ref{eq:error_output}} \frac{\partial C}{\partial b} = \delta 
+  \end{equation}
+\item
+  An equation describing the rate of change of the cost with respect
+  to \textbf{weights} in the network:
+  \begin{equation}
+    \label{eq:error_cost}
+    \frac{\partial C}{\partial w_{jk}^l} = a^{l-1}_k\delta^l_j
+  \end{equation}
+  
+\end{enumerate}
+
+\subsubsection*{Algorithm using backpropagation}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{this text}
+\KwResult{how to write algorithm with \LaTeX2e }
+initialization\;
+\While{not at end of this document}{
+read current\;
+\eIf{understand}{
+go to next section\;
+current section becomes this one\;
+}{
+go back to the beginning of current section\;
+}
+}
+\caption{How to write algorithms}
+\end{algorithm}
 
 \newpage
 \subsection{Types of the most common ANNs}

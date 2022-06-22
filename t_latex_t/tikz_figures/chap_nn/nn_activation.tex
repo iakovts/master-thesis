@@ -65,10 +65,10 @@
   \node[below=17,right=11,mydarkblue,scale=0.95] at (NO-1)
     {$\begin{aligned} %\underset{\text{bias}}{b_1}
        &= \color{mydarkred}\sigma\left( \color{black}
-            w_{1,1}\agr{1} + w_{1,2}\agr{2} + \ldots + w_{1,n}\agr{n} + b_1^{(0)}
+            w_{1,1}\agr{1} + w_{1,2}\agr{2} + \ldots + w_{1,n}\agr{n} + b_1^{(1)}
           \color{mydarkred}\right)\\
        &= \color{mydarkred}\sigma\left( \color{black}
-            \sum_{i=1}^{n} w_{1,i}\agr{i} + b_1^{(0)}
+            \sum_{i=1}^{n} w_{1,i}\agr{i} + b_1^{(1)}
            \color{mydarkred}\right)
      \end{aligned}$};
   \node[right,scale=0.9] at (1.3,-1.3)
@@ -97,15 +97,15 @@
       \end{pmatrix}}
       +
       \begin{pmatrix}
-        b_{1}^{(0)} \\[0.3em]
-        b_{2}^{(0)} \\
+        b_{1}^{(1)} \\[0.3em]
+        b_{2}^{(1)} \\
         \vdots \\
-        b_{m}^{(0)}
+        b_{m}^{(1)}
       \end{pmatrix}
       \color{mydarkred}\right]\\[0.5em]
       {\color{mydarkblue}a^{(1)}}
       &= \color{mydarkred}\sigma\left( \color{black}
-           \mathbf{W}^{(0)} {\color{mydarkgreen}a^{(0)}}+\mathbf{b}^{(0)}
+           \mathbf{W}^{(1)} {\color{mydarkgreen}a^{(0)}}+\mathbf{b}^{(1)}
          \color{mydarkred}\right)
          %\color{black},\quad \mathbf{W}^{(0)} \in \mathbb{R}^{m\times n}
     \end{aligned}$};

@@ -16,12 +16,14 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand \oddpage@label [2]{}
 \@writefile{toc}{\contentsline {chapter}{Declaration of Authorship}{i}{dummy.2}\protected@file@percent }
 \@writefile{toc}{\vspace  {1em}}
 \@writefile{toc}{\contentsline {chapter}{Abstract}{iii}{dummy.3}\protected@file@percent }
 \@writefile{toc}{\vspace  {1em}}
 \@writefile{toc}{\contentsline {chapter}{Acknowledgements}{iv}{dummy.4}\protected@file@percent }
 \@writefile{toc}{\vspace  {1em}}
+\citation{article:image_gradient}
 \@writefile{toc}{\contentsline {chapter}{List of Figures}{vii}{dummy.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{List of Tables}{viii}{dummy.8}\protected@file@percent }
 \gdef \LT@i {\LT@entry 
@@ -34,6 +36,7 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.13}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \newlabel{introduction}{{1}{1}{Introduction}{chapter.13}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Graphs}{1}{section.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}Introduction}{1}{subsection.15}\protected@file@percent }
@@ -96,6 +99,7 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Graph Neural Networks}{12}{chapter.46}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \newlabel{literature}{{2}{12}{Graph Neural Networks}{chapter.46}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Background - Artificial Neural Networks}{12}{section.47}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Historical Background}{12}{subsection.48}\protected@file@percent }
@@ -109,71 +113,103 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2.2}Building Blocks}{14}{subsubsection.56}\protected@file@percent }
 \citation{book:Goodfellow}
 \citation{article:Cauchy}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Input to a single neuron in a feedforward network. Here $\sigma $ represents the activation function (a sigmoid function in this case) and the exponents represent layers. The activation of a layer can be conveniently represented in matrix form. Biases are added to the input of the node.\relax }}{15}{figure.caption.58}\protected@file@percent }
-\newlabel{fig:nn_activation}{{2.2}{15}{Input to a single neuron in a feedforward network. Here $\sigma $ represents the activation function (a sigmoid function in this case) and the exponents represent layers. The activation of a layer can be conveniently represented in matrix form. Biases are added to the input of the node.\relax }{figure.caption.58}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Mathematics useful in ANNs}{15}{subsection.59}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3.1}Gradient Descent}{15}{subsubsection.60}\protected@file@percent }
-\newlabel{sec:gradient_descent}{{2.1.3.1}{15}{Gradient Descent}{subsubsection.60}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Mathematics useful in ANNs}{15}{section.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Gradient Descent}{15}{subsection.59}\protected@file@percent }
+\newlabel{sec:gradient_descent}{{2.2.1}{15}{Gradient Descent}{subsection.59}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Gradient descent in three dimensional space\relax }}{15}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:gradient_descent_2d}{{2.2}{15}{Gradient descent in three dimensional space\relax }{figure.caption.61}{}}
 \citation{book:optimization}
 \citation{article:Rosenblatt1958ThePA}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Gradient descent in three dimensional space\relax }}{16}{figure.caption.62}\protected@file@percent }
-\newlabel{fig:gradient_descent_2d}{{2.3}{16}{Gradient descent in three dimensional space\relax }{figure.caption.62}{}}
-\newlabel{eq:grad_simple}{{2.1}{16}{}{equation.64}{}}
-\newlabel{eq:convex_func}{{2.2}{16}{}{equation.66}{}}
+\newlabel{eq:grad_simple}{{2.1}{16}{}{equation.63}{}}
+\newlabel{eq:convex_func}{{2.2}{16}{}{equation.65}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Hadamard Product}{16}{subsection.66}\protected@file@percent }
+\newlabel{sec:hadamard}{{2.2.2}{16}{Hadamard Product}{subsection.66}{}}
+\newlabel{eq:hamarand}{{2.3}{16}{Hadamard Product}{equation.67}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Feedforward Networks}{16}{section.68}\protected@file@percent }
 \citation{book:Goodfellow}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3.2}Feedforward Networks}{17}{subsubsection.67}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3.3}Perceptrons, learning algorithms and simple NNs}{17}{subsubsection.68}\protected@file@percent }
-\newlabel{sec:perceptron}{{2.1.3.3}{17}{Perceptrons, learning algorithms and simple NNs}{subsubsection.68}{}}
-\newlabel{fig:simple_perceptron}{{\caption@xref {fig:simple_perceptron}{ on input line 281}}{18}{Perceptrons, learning algorithms and simple NNs}{figure.caption.69}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces A simple perceptron\relax }}{18}{figure.caption.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Perceptrons, learning algorithms and simple NNs}{17}{subsection.69}\protected@file@percent }
+\newlabel{sec:perceptron}{{2.3.1}{17}{Perceptrons, learning algorithms and simple NNs}{subsection.69}{}}
+\newlabel{fig:simple_perceptron}{{\caption@xref {fig:simple_perceptron}{ on input line 278}}{17}{Perceptrons, learning algorithms and simple NNs}{figure.caption.70}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces A simple perceptron\relax }}{17}{figure.caption.70}\protected@file@percent }
 \citation{book:Abramowitz}
 \citation{book:nielsen}
-\newlabel{eq:sigmoid}{{2.3}{19}{Usefullness of activation functions}{equation.73}{}}
-\newlabel{fig:sigmoid function and its derivative}{{\caption@xref {fig:sigmoid function and its derivative}{ on input line 372}}{19}{Usefullness of activation functions}{figure.caption.72}{}}
-\newlabel{sub@fig:sigmoid function and its derivative}{{a}{19}{Usefullness of activation functions}{figure.caption.72}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Types of the most common ANNs}{20}{subsection.74}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.5}Training}{20}{subsection.76}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.6}Convolutional Neural Networks}{21}{subsection.77}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Notation \& Fundamentals}{22}{chapter.78}\protected@file@percent }
+\newlabel{eq:sigmoid}{{2.4}{19}{A more practical activation function}{equation.73}{}}
+\newlabel{fig:sigmoid function and its derivative}{{\caption@xref {fig:sigmoid function and its derivative}{ on input line 367}}{19}{A more practical activation function}{figure.caption.74}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Plot of the sigmoid function, its first derivative and the Heaviside step function.\relax }}{19}{figure.caption.74}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Input to a single neuron in a feedforward network. Here $\sigma $ represents the activation function (a sigmoid function in this case) and the exponents represent layers. The activation of a layer can be conveniently represented in matrix form. Biases are added to the input of the node.\relax }}{20}{figure.caption.75}\protected@file@percent }
+\newlabel{fig:nn_activation}{{2.5}{20}{Input to a single neuron in a feedforward network. Here $\sigma $ represents the activation function (a sigmoid function in this case) and the exponents represent layers. The activation of a layer can be conveniently represented in matrix form. Biases are added to the input of the node.\relax }{figure.caption.75}{}}
+\newlabel{eq:cost_func_simple}{{2.5}{20}{Learning}{equation.77}{}}
+\newlabel{eq:cost_func_grad}{{2.6}{20}{Learning}{equation.78}{}}
+\citation{article:bottou}
+\citation{book:robbins}
+\citation{article:image_gradient}
+\citation{article:image_gradient}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Noisy convergence of SGD compared to non-stochastic. Image source \cite  {article:image_gradient}.\relax }}{21}{figure.caption.80}\protected@file@percent }
+\newlabel{fig:gradient_descent_noisy}{{2.6}{21}{Noisy convergence of SGD compared to non-stochastic. Image source \cite {article:image_gradient}.\relax }{figure.caption.80}{}}
+\newlabel{eq:cost_func_stoch}{{2.7}{21}{Stochastic Gradient Descent (SGD)}{equation.81}{}}
+\newlabel{eq:yolo}{{2.8}{22}{Training rules}{equation.83}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Backpropagation}{22}{subsection.89}\protected@file@percent }
+\newlabel{eq:layer}{{2.9}{22}{Matrix Notation}{equation.92}{}}
+\newlabel{eq:backprop_mse}{{2.10}{23}{Fundamentals of Backpropagation}{equation.94}{}}
+\newlabel{eq:error_nn}{{2.11}{23}{Equations of backpropagation}{equation.96}{}}
+\newlabel{eq:error_output}{{2.13}{23}{Equations of backpropagation}{equation.99}{}}
+\newlabel{eq:error_layer}{{2.14}{23}{Equations of backpropagation}{equation.101}{}}
+\newlabel{eq:error_bias}{{2.15}{24}{Equations of backpropagation}{equation.103}{}}
+\newlabel{eq:error_cost}{{2.16}{24}{Equations of backpropagation}{equation.105}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces How to write algorithms\relax }}{24}{algocf.108}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Types of the most common ANNs}{25}{subsection.109}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Training}{25}{subsection.111}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}Convolutional Neural Networks}{26}{subsection.112}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Notation \& Fundamentals}{27}{chapter.113}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{methodology}{{3}{22}{Notation \& Fundamentals}{chapter.78}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Basic Principles and Implementation Framework for an [Problem to be Solved]}{23}{chapter.79}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{methodology}{{3}{27}{Notation \& Fundamentals}{chapter.113}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Basic Principles and Implementation Framework for an [Problem to be Solved}{28}{chapter.114}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{framework}{{4}{23}{Basic Principles and Implementation Framework for an [Problem to be Solved]}{chapter.79}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementation and Core Components of [Platform Title]}{24}{chapter.80}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{framework}{{4}{28}{Basic Principles and Implementation Framework for an [Problem to be Solved]}{chapter.114}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementation and Core Components of [Platform Title}{29}{chapter.115}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{platform}{{5}{24}{Implementation and Core Components of [Platform Title]}{chapter.80}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Experimentation \& Validation}{25}{chapter.81}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{platform}{{5}{29}{Implementation and Core Components of [Platform Title]}{chapter.115}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Experimentation \& Validation}{30}{chapter.116}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{experimentationANDresults}{{6}{25}{Experimentation \& Validation}{chapter.81}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions \& Future Work}{26}{chapter.82}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{experimentationANDresults}{{6}{30}{Experimentation \& Validation}{chapter.116}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions \& Future Work}{31}{chapter.117}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{conclusions}{{7}{26}{Conclusions \& Future Work}{chapter.82}{}}
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{conclusions}{{7}{31}{Conclusions \& Future Work}{chapter.117}{}}
 \@writefile{toc}{\vspace  {2em}}
 \@writefile{toc}{\vspace  {2em}}
 \bibstyle{unsrtnat}
 \bibdata{Bibliography}
-\bibcite{book:2008}{{1}{2008}{{Adrian~Bondy}}{{}}}
-\bibcite{article:bollobas}{{2}{2002}{{Bollobas and Szemerédi}}{{}}}
-\bibcite{book:Gary}{{3}{2012}{{Gary~Chartrand}}{{}}}
-\bibcite{book:algebraic}{{4}{}{{Ashikhmin and Barg}}{{}}}
-\bibcite{book:Newman}{{5}{2018}{{Newman}}{{}}}
-\bibcite{article:ChebNet}{{6}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
-\bibcite{book:Jost2007}{{7}{2007}{{Jost}}{{}}}
-\bibcite{article:McCulloch1943}{{8}{1943}{{McCulloch and Pitts}}{{}}}
-\bibcite{article:Rosenblatt1958ThePA}{{9}{1958}{{Rosenblatt}}{{}}}
-\bibcite{book:minsky1969perceptrons}{{10}{1969}{{Minsky and Papert}}{{}}}
-\bibcite{book:werbos1975beyond}{{11}{1975}{{Werbos}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{27}{dummy.83}\protected@file@percent }
-\newlabel{Bibliography}{{7}{27}{Conclusions \& Future Work}{dummy.83}{}}
-\bibcite{article:Cresceptron}{{12}{1992}{{Weng et~al.}}{{Weng, Ahuja, and Huang}}}
-\bibcite{book:Gurney1997AnIT}{{13}{1997}{{Gurney}}{{}}}
-\bibcite{article:SCHMID}{{14}{2015}{{Schmidhuber}}{{}}}
-\bibcite{book:Goodfellow}{{15}{2016}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{article:Cauchy}{{16}{1847}{{Cauchy}}{{}}}
-\bibcite{book:optimization}{{17}{2005}{{Liqun~Qi}}{{}}}
+\bibcite{article:image_gradient}{{1}{2018}{{Carpenter et~al.}}{{Carpenter, Cohen, Jarrell, and Huang}}}
+\bibcite{book:2008}{{2}{2008}{{Adrian~Bondy}}{{}}}
+\bibcite{article:bollobas}{{3}{2002}{{Bollobas and Szemerédi}}{{}}}
+\bibcite{book:Gary}{{4}{2012}{{Gary~Chartrand}}{{}}}
+\bibcite{book:algebraic}{{5}{}{{Ashikhmin and Barg}}{{}}}
+\bibcite{book:Newman}{{6}{2018}{{Newman}}{{}}}
+\bibcite{article:ChebNet}{{7}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
+\bibcite{book:Jost2007}{{8}{2007}{{Jost}}{{}}}
+\bibcite{article:McCulloch1943}{{9}{1943}{{McCulloch and Pitts}}{{}}}
+\bibcite{article:Rosenblatt1958ThePA}{{10}{1958}{{Rosenblatt}}{{}}}
+\bibcite{book:minsky1969perceptrons}{{11}{1969}{{Minsky and Papert}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{32}{dummy.118}\protected@file@percent }
+\newlabel{Bibliography}{{7}{32}{Conclusions \& Future Work}{dummy.118}{}}
+\bibcite{book:werbos1975beyond}{{12}{1975}{{Werbos}}{{}}}
+\bibcite{article:Cresceptron}{{13}{1992}{{Weng et~al.}}{{Weng, Ahuja, and Huang}}}
+\bibcite{book:Gurney1997AnIT}{{14}{1997}{{Gurney}}{{}}}
+\bibcite{article:SCHMID}{{15}{2015}{{Schmidhuber}}{{}}}
+\bibcite{book:Goodfellow}{{16}{2016}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{article:Cauchy}{{17}{1847}{{Cauchy}}{{}}}
+\bibcite{book:optimization}{{18}{2005}{{Liqun~Qi}}{{}}}
+\bibcite{book:Abramowitz}{{19}{1972}{{Abramowitz and Stegun}}{{}}}
+\bibcite{book:nielsen}{{20}{2015}{{Nielsen}}{{}}}
+\bibcite{article:bottou}{{21}{2010}{{Bottou}}{{}}}
+\bibcite{book:robbins}{{22}{1971}{{Robbins and Siegmund}}{{}}}
