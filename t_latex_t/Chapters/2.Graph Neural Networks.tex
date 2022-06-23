@@ -1,10 +1,10 @@
-\chapter{Graph Neural Networks} \label{literature}
+\chapter{Neural Networks} \label{literature}
 
-\section{Background - Artificial Neural Networks}
+% \section{Background - Artificial Neural Networks}
 
 % \subsection{Introduction}
 
-\subsection{Historical Background}
+\section{Historical Background}
 
 \textbf{Artificial Neural Networks (ANN)}, or sometimes simply called
 \textbf{neural networks} is a class of computational models that mimic
@@ -554,7 +554,7 @@ cost functions of individual training samples $x$. This
 ensures that after computing the partial derivatives
 $\frac{\partial C_X}{\partial w} \text{and} \frac{\partial C_X}{partial b}$
 over the training set, it is possible to calculate 
-$\frac{\partial C}{\partial w} \text{and} \frac{\partial C}{partial b}$
+$\frac{\partial C}{\partial w} \text{and} \frac{\partial C}{\partial b}$
 by averaging over the set.
 
 The second requirement is that the cost function $C$ can be
@@ -688,7 +688,7 @@ in \eref{eq:update_w_b}, can be represented with the following pseudo-code:
 \Begin{
   % layers = $1, 2, 3, ... L$\;
   $a^{x, l} \gets \text{set the activation for each sample}$\;
-  \tcp{Pass the activation to the backpropagation algorithm from \Aref{alg:Backprop}
+  \tcp{Pass the activation to the backpropagation from \Aref{alg:Backprop}
     and get the error as output}
   $\delta^{x,l} = ((w^{l+1})^T\delta^{x,l+1})\odot \sigma'(z^{x,l})$\;
   \tcp{Gradient Descent and updates for weights and biases}
@@ -701,21 +701,80 @@ in \eref{eq:update_w_b}, can be represented with the following pseudo-code:
 \end{algorithm}
 
 \clearpage
-\subsection{Types of the most common ANNs}
+\subsection{Common ANN Architectures}
 
+So far, the models discussed were simple perceptrons and multi-layer
+perceptrons (MLPs), networks which are fully connected --- each neuron
+in a layer is connected to all the neurons of the next layer (i.e. see
+\fref{fig:simple_nn_demo}). This architecture does not take into
+account that data used as input might carry some spatial structure, as
+in the case of image recognition and computer vision.  In this
+section, convolutional neural networks will be introduced briefly,
+which take into account the spatially local input patterns of some
+datasets, while at the same time reducing the number of free parameters
+allowing for deeper networks. While the origin of these types of
+networks can be traced to 1970, they were first established as a concept
+by LeCun in the paper ``Gradient-based learning applied to document
+recognition'' from \citet{article:lecun1998}.
 
-\subsubsection*{Common FNNs}
+\subsubsection{Convolutional Neural Networks (CNNs)}
 
-\textbf{Single-layer Perceptron} 
-% In feedforward neural networks, information flows from the input
-% \textbf{$x$} layer towards the output
+As mentioned before, CNNs take advantage of the spatial structure that
+some types of data have. For instance an image has a grid-topology,
+which is ignored in the case of simple or deep MLPs and as a consequence it
+inhibits learning by treating pixels which are spatially far, in the same
+manner. CNNs architecture solve this problem by taking into account
+the spatial characteristics of their input data. The basic concepts of
+CNNs are \textit{local receptive fields, shared weights} and \textit{pooling}.
+In this context, the input layer is considered to be 2-dimensional structure
+typically a square.
 
+\textbf{Local receptive fields}
 
-\subsection{Training}
+Each neuron of the hidden layer is connected to a
+small region of the input layer, typically a small square, which
+is called the \textit{local receptive field} of the hidden neuron.
+Each of these connections has a trainable weight, and the neuron has a bias.
+The region is slid across the input layer, passing values to the hidden layer.
 
+\textbf{Shared weights and biases}
 
+All of the hidden neurons share the same weights and biases; with the activation
+of the i, $k$th neuron begin:
+\begin{equation}
+  \label{eq:cnn_activation}
+  \sigma \bigg(b + \sum_{l=0}^{r_x}\sum_{m=0}^{r_y}w_{l,m}a_{j+l,k+m}\bigg)
+\end{equation}
 
-\newpage
-\subsection{Convolutional Neural Networks}
-\newpage
+where $\sigma$ represents the neural activation function, $a_{x,y}$
+are the activations of the input at those coordinates and $r_x, r_y$
+are the dimensions of the receptive field.
 
+Sharing weights and biases allows for features to be detected
+from input data, in conjuction with their spatial coordinates.
+For this reason, the mapping of the input layer to the hidden
+layer is called a \textit{feature map}, and the shared weights
+and biases are often called a \textit{kernel} or \textit{filter}.
+Typically, CNNs have several of these feature maps, one for each
+feature they are configured (or learn) to detect.
+
+\begin{figure}[H]
+  \centering
+  \input{tikz_figures/chap_nn/feature_maps.tex}
+  \caption{Illustration of a convolutional layer with multiple feature maps.}
+  \label{fig:feature_maps}
+\end{figure}
+
+\textbf{Pooling Layers} Pooling layers are typically
+used immediately after the convolutional (hidden) layers.  It reduces
+the dimensions of clusters of neuros into a signle neuron in the next
+layer. The two most common pooling procedures are max-pooling which
+outputs the maximum activation from the pooling region and the average
+pooling which outputs the average value of the activations.
+
+\begin{figure}[H]
+  \centering
+  \input{tikz_figures/chap_nn/pooling.tex}
+  \caption{Illustration of the pooling layer following the feature maps}
+  \label{fig:pooling}
+\end{figure}
