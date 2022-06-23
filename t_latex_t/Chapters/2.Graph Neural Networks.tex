@@ -473,7 +473,7 @@ for them can now be defined in terms of the cost function:
 \begin{align}
   w_k \rightarrow w^{'}_k &= w_k - \frac{\eta}{m}\sum_j \frac{\partial C_{x_j}}{\partial w_k} \nonumber \\
   b_l \rightarrow b^{'}_l &= b_l - \frac{\eta}{m}\sum_j \frac{\partial C_{x_j}}{\partial b_l}
-  \label{eq:yolo}
+  \label{eq:update_w_b}
 \end{align}
 
 where $\eta$ is a small positive value, the \textbf{learning rate}. 
@@ -491,10 +491,32 @@ Having described the above, the process of training the NN can be summarized as:
 
 \subsection{Backpropagation}
 
-\textbf{NOTE: }Briefly describe backprop here
-% Ultimately the goal of backpropagation is to compute the % partial
-%derivatives $\frac{\partial C_X}{\partial w^l_{jk}} \text{and} \frac{\partial
-% C_X}{partial b^l_{j}}$
+Backpropagation is a method of computing the gradient of the loss function
+with respect to all the weights and biases of the network, based on single
+training examples, in contrast to more naive methods which compute the gradient
+on each weight or bias individually.
+
+Even though these days the term \textit{backpropagation} is sometimes
+used colloquially to refer to the whole process of the learning algorithm,
+strictly it is just an algorithm to compute the gradient, while SGD can be
+used for the training itself \cite{book:Goodfellow}.
+
+Historically, this method has been rediscovered multiple times, as early
+as 1960 \cite{article:SCHMID} with its first implementation as
+software in 1970 \cite[p.~229]{book:Goodfellow}, albeit as a method
+for automatic differentation with no mention to neural networks. In
+1974, Werbos proposed its usage in training neural
+networks\cite{book:WerbosBackprop}, but it was not until 1986 when
+\citet*{article:backprop} published their seminal paper ``Learning
+representations by back-propagating errors'' which experimentally
+showed that backpropagation can be used to train deep neural networks
+faster than any existing technique up to that point.
+
+
+Ultimately the goal of backpropagation is to compute the partial
+derivatives $\frac{\partial C_X}{\partial w^l_{jk}} ~\text{and}~ \frac{\partial
+  C_X}{\partial b^l_{j}}$ --- the partial derivates of the cost function
+ with respect to weights and biases in the network.
 
 
 \subsubsection*{Matrix Notation}
@@ -503,7 +525,7 @@ Before introducing the equations of backpropagation, it is
 important to present a matrix notation for quantities in a
 network which are used widely and unambigiuous. Consider the
 equations presented in \fref{fig:nn_activation}. For a network
-with $m$ layers, the connection of the $k^{th}$ neuron in the
+with $L$ layers, the connection of the $k^{th}$ neuron in the
 $(l-1)^{th}$ layer with $j^{th}$ node in $l^{th}$ layer can be
 written as $w_{jk}^l$. In a similar fashion, the bias of the
 $j^{th}$ node in the $l^{th}$ layer can be represented as $b^l_j$
@@ -563,7 +585,7 @@ The error can the be defined as:
 \end{equation}
 
 
-The fundamentals equations which govern the backpropagation process
+The fundamental equations which govern the backpropagation process
 are described below.
 \begin{enumerate}
 \item
@@ -606,26 +628,79 @@ are described below.
   
 \end{enumerate}
 
-\subsubsection*{Algorithm using backpropagation}
+Finally, \eref{eq:error_bias} and \eref{eq:error_cost} have been
+derived and can now be used in SGD or other learning algorithms.
 
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwData{this text}
-\KwResult{how to write algorithm with \LaTeX2e }
-initialization\;
-\While{not at end of this document}{
-read current\;
-\eIf{understand}{
-go to next section\;
-current section becomes this one\;
-}{
-go back to the beginning of current section\;
+The importance of backpropagation as a method arises from the fact that it is
+possible to compute all the partial derivatives of the cost function
+with just one forward and one backward pass through the network. Before
+its emergence, training a network required computing these derivatives
+for each weight and bias individually, which was prohibitively time consuming
+for larger networks.
+
+
+\subsubsection*{Learning algorithm using backpropagation}
+
+The backpropagation algorithm can be represented in pseudocode
+as shown below.
+
+
+\begin{algorithm}
+\caption{Backpropagation Algorithm}
+\label{alg:Backprop}
+\DontPrintSemicolon
+\KwData{$\bm{x}$ the activation of the input layer $\bm{a^1}$}
+\KwResult{The gradient of $C$ in terms of $\frac{\partial C}{\partial w_{jk}^l} = a^{l-1}_k\delta_j^l ~\text{and} ~ \frac{\partial C}{\partial b_j^l} = \delta_j^l$}
+\Begin{
+  % layers = $1, 2, 3, ... L$\;
+  $layers \gets [2, 3, ... L ]$\;
+  \tcp{Feedforward pass}
+  \For {l in layers}{
+    $z^l \gets w^la^{l-1} + b^l$\;
+    $a^l \gets \sigma(z^l)$\;
+  }
+  \tcp{Output: Error vector}
+  $\bm{\delta^l} \gets \nabla_a \bm{C} \odot \bm{\sigma'(z^L)}$ \;
+  \tcp{Backpropagate the error}
+  $layers\_reverse \gets [L-1, L-2, ... 2]$\;
+  \For {l in layers\_reverse}{
+    $ \bm{\delta^l} \gets ((\bm{(w^{l+1})^T\delta^{l+1}}) \odot \bm{\sigma'(z^l)}$\;
+  }
+  
+  \tcp{Output}
+  $\frac{\partial C}{\partial w_{jk}^l} \gets a^{l-1}_k\delta_j^l$\;
+  $\frac{\partial C}{\partial b_j^l} \gets \delta_j^l$\;
 }
-}
-\caption{How to write algorithms}
 \end{algorithm}
 
-\newpage
+Consequently, combining backpropagation and a learning algorithm
+such as a SGD, it is possible to train a network. For instance,
+in a SGD with $m$ mini-batches case, the training rules, as described
+in \eref{eq:update_w_b}, can be represented with the following pseudo-code:
+
+
+\begin{algorithm}
+\caption{Training Rules using SGD with backpropagation}
+\label{alg:Training_Backprop}
+\DontPrintSemicolon
+\KwData{Sets of training examples}
+\KwResult{Updated weights and biases based on gradient descent of the cost function}
+\Begin{
+  % layers = $1, 2, 3, ... L$\;
+  $a^{x, l} \gets \text{set the activation for each sample}$\;
+  \tcp{Pass the activation to the backpropagation algorithm from \Aref{alg:Backprop}
+    and get the error as output}
+  $\delta^{x,l} = ((w^{l+1})^T\delta^{x,l+1})\odot \sigma'(z^{x,l})$\;
+  \tcp{Gradient Descent and updates for weights and biases}
+  $layers\_reverse \gets [L-1, L-2, ... 2]$\;
+  \For {l in layers\_reverse}{
+  $ w^{l'} \gets w^l - \frac{\eta}{m}\sum_x\delta^{x,l}(a^{x,l-1})^T$\;
+  $b^{l'} \gets b^l - \frac{\eta}{m}\sum_x\delta^{x,l}$\;
+  }
+}
+\end{algorithm}
+
+\clearpage
 \subsection{Types of the most common ANNs}
 
 
