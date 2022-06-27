@@ -342,4 +342,19 @@ node by attending over its neighbors, using self-attention.
 
 
 
-As mentioned in the previous section, a function which 
+As mentioned in the previous section, a function which creates
+the representations of nodes must be permutation invariant. As an
+example, it is possible to consider a weighted sum as an aggregation
+of a node with its first degree neighbors. A choice for a permutation
+invariant function is a scalar scoring function $f(n_i, n_j)$ that
+assigns weights based on pairs of nodes, scoring their relevance.
+A softmax function \footnote{ A softmax (also known as softargmax or
+  multi-class logistic ) function takes a vector $\bm{z}$ of real values
+  as input and returns a a vector $K$ of real values that sum to 1. It
+  is a generalization of the logistic function to multiple dimensions and
+  its formula is $\sigma(\bm{z})_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$
+  where $K>1$.
+} can be applied to focus on the neighbor with the highest relevance to the
+node. A common scoring function is the inner product and it is also common
+to transform the nodes before scoring into key and query vectors to increase
+the 
