@@ -25,6 +25,7 @@
 \@writefile{toc}{\vspace  {1em}}
 \citation{article:image_gradient}
 \citation{article:stefi}
+\citation{site:embeddings}
 \@writefile{toc}{\contentsline {chapter}{List of Figures}{vii}{dummy.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{List of Tables}{viii}{dummy.8}\protected@file@percent }
 \gdef \LT@i {\LT@entry 
@@ -178,6 +179,15 @@
 \citation{article:TGNNM}
 \citation{article:zhou}
 \citation{article:sperduti}
+\citation{article:geomDeep}
+\citation{hamilton2017representation,article:zhang}
+\citation{mikolov2013efficient,mikolov2013distributed}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Graph Neural Networks (GNNs)}{29}{chapter.118}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
+\newlabel{GNN}{{3}{29}{Graph Neural Networks (GNNs)}{chapter.118}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Introduction}{29}{section.119}\protected@file@percent }
 \citation{article:xiong,article:bognini}
 \citation{article:wieder}
 \citation{article:sanchez}
@@ -186,79 +196,91 @@
 \citation{article:chaudhary}
 \citation{article:monti}
 \citation{article:jiang}
+\citation{xu2018powerful}
 \citation{article:duvenaud}
 \citation{article:stefi}
 \citation{article:stefi}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Graph Neural Networks (GNNs)}{29}{chapter.118}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{GNN}{{3}{29}{Graph Neural Networks (GNNs)}{chapter.118}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Introduction}{29}{section.119}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Dopamine molecule represented as a graph. Different types of nodes represent different atoms and different edges represent the chemical bonds present in the molecule. Image source \citet  {article:stefi}.\relax }}{30}{figure.caption.120}\protected@file@percent }
-\newlabel{fig:dopamine}{{3.1}{30}{Dopamine molecule represented as a graph. Different types of nodes represent different atoms and different edges represent the chemical bonds present in the molecule. Image source \citet {article:stefi}.\relax }{figure.caption.120}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Basic Principles and Implementation Framework for an [Problem to be Solved}{31}{chapter.121}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{framework}{{4}{31}{Basic Principles and Implementation Framework for an [Problem to be Solved]}{chapter.121}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementation and Core Components of [Platform Title}{32}{chapter.122}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{platform}{{5}{32}{Implementation and Core Components of [Platform Title]}{chapter.122}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Experimentation \& Validation}{33}{chapter.123}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{experimentationANDresults}{{6}{33}{Experimentation \& Validation}{chapter.123}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions \& Future Work}{34}{chapter.124}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{conclusions}{{7}{34}{Conclusions \& Future Work}{chapter.124}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Dopamine molecule represented as a graph. Different types of nodes represent different atoms and different edges represent the chemical bonds present in the molecule. Image source \citet  {article:stefi}.\relax }}{31}{figure.caption.120}\protected@file@percent }
+\newlabel{fig:dopamine}{{3.1}{31}{Dopamine molecule represented as a graph. Different types of nodes represent different atoms and different edges represent the chemical bonds present in the molecule. Image source \citet {article:stefi}.\relax }{figure.caption.120}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}From CNNs to Graph Neural Networks}{31}{section.122}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Challenges}{31}{subsection.123}\protected@file@percent }
+\citation{site:embeddings}
+\citation{site:embeddings}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Creating embeddings}{32}{subsection.124}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Embedding of nodes $u$ and $v$ to low dimensional vector space. Image source \cite  {site:embeddings}\relax }}{32}{figure.caption.126}\protected@file@percent }
+\newlabel{fig:node_embedding}{{3.2}{32}{Embedding of nodes $u$ and $v$ to low dimensional vector space. Image source \cite {site:embeddings}\relax }{figure.caption.126}{}}
+\citation{defferrard2016convolutional}
+\newlabel{fig:feature_map}{{\caption@xref {fig:feature_map}{ on input line 176}}{33}{Creating embeddings}{figure.caption.130}{}}
+\newlabel{sub@fig:feature_map}{{}{33}{Creating embeddings}{figure.caption.130}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces A graph and its corresponding feature vector. The feature vector contains the features from all the nodes, in this case simply a real number.\relax }}{33}{figure.caption.130}\protected@file@percent }
+\newlabel{fig:combo_feature}{{3.3}{33}{A graph and its corresponding feature vector. The feature vector contains the features from all the nodes, in this case simply a real number.\relax }{figure.caption.130}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Initial Implementations}{33}{subsection.131}\protected@file@percent }
+\newlabel{eq:polynomial_basic}{{3.1}{33}{Initial Implementations}{equation.132}{}}
+\newlabel{eq:convo_pol}{{3.2}{33}{Initial Implementations}{equation.133}{}}
+\citation{article:hammond}
+\citation{defferrard2016convolutional}
+\newlabel{eq:conv_ex}{{3.3}{34}{Initial Implementations}{equation.134}{}}
+\newlabel{eq:poly_deg}{{3.4}{34}{Initial Implementations}{equation.135}{}}
+\newlabel{eq:poly_fin}{{3.5}{34}{Initial Implementations}{equation.136}{}}
+\citation{article:messageP}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3.1}Algorithmic Computation using polynomials}{35}{subsubsection.139}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Embedding Computation for a GNN using $K$ polynomial filter layers.\relax }}{35}{algocf.142}\protected@file@percent }
+\newlabel{alg:embedding_comp}{{3}{35}{Algorithmic Computation using polynomials}{algocf.142}{}}
+\citation{velickovic2017graph}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Modern Graph Neural Networks}{36}{section.143}\protected@file@percent }
 \@writefile{toc}{\vspace  {2em}}
 \@writefile{toc}{\vspace  {2em}}
 \bibstyle{unsrtnat}
 \bibdata{Bibliography}
 \bibcite{article:image_gradient}{{1}{2018}{{Carpenter et~al.}}{{Carpenter, Cohen, Jarrell, and Huang}}}
 \bibcite{article:stefi}{{2}{2019}{{Stefi et~al.}}{{Stefi, Barth, David, Quessette, Weisser, and Watel}}}
-\bibcite{book:2008}{{3}{2008}{{Adrian~Bondy}}{{}}}
-\bibcite{article:bollobas}{{4}{2002}{{Bollobas and Szemerédi}}{{}}}
-\bibcite{book:Gary}{{5}{2012}{{Gary~Chartrand}}{{}}}
-\bibcite{book:algebraic}{{6}{}{{Ashikhmin and Barg}}{{}}}
-\bibcite{book:Newman}{{7}{2018}{{Newman}}{{}}}
-\bibcite{article:ChebNet}{{8}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
-\bibcite{book:Jost2007}{{9}{2007}{{Jost}}{{}}}
-\bibcite{article:McCulloch1943}{{10}{1943}{{McCulloch and Pitts}}{{}}}
-\bibcite{article:Rosenblatt1958ThePA}{{11}{1958}{{Rosenblatt}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{35}{dummy.125}\protected@file@percent }
-\newlabel{Bibliography}{{7}{35}{Conclusions \& Future Work}{dummy.125}{}}
-\bibcite{book:minsky1969perceptrons}{{12}{1969}{{Minsky and Papert}}{{}}}
-\bibcite{book:werbos1975beyond}{{13}{1975}{{Werbos}}{{}}}
-\bibcite{article:Cresceptron}{{14}{1992}{{Weng et~al.}}{{Weng, Ahuja, and Huang}}}
-\bibcite{book:Gurney1997AnIT}{{15}{1997}{{Gurney}}{{}}}
-\bibcite{article:SCHMID}{{16}{2015}{{Schmidhuber}}{{}}}
-\bibcite{book:Goodfellow}{{17}{2016}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
-\bibcite{article:Cauchy}{{18}{1847}{{Cauchy}}{{}}}
-\bibcite{book:optimization}{{19}{2005}{{Liqun~Qi}}{{}}}
-\bibcite{book:Abramowitz}{{20}{1972}{{Abramowitz and Stegun}}{{}}}
-\bibcite{book:nielsen}{{21}{2015}{{Nielsen}}{{}}}
-\bibcite{article:bottou}{{22}{2010}{{Bottou}}{{}}}
-\bibcite{book:robbins}{{23}{1971}{{Robbins and Siegmund}}{{}}}
-\bibcite{book:WerbosBackprop}{{24}{1994}{{Werbos}}{{}}}
-\bibcite{article:backprop}{{25}{1986}{{Rumelhart et~al.}}{{Rumelhart, Hinton, and Williams}}}
-\bibcite{article:lecun1998}{{26}{1998}{{Lecun et~al.}}{{Lecun, Bottou, Bengio, and Haffner}}}
-\bibcite{article:TGNNM}{{27}{2009}{{Scarselli et~al.}}{{Scarselli, Gori, Tsoi, Hagenbuchner, and Monfardini}}}
-\bibcite{article:zhou}{{28}{2020}{{Zhou et~al.}}{{Zhou, Cui, Hu, Zhang, Yang, Liu, Wang, Li, and Sun}}}
-\bibcite{article:sperduti}{{29}{1997}{{Sperduti and Starita}}{{}}}
-\bibcite{article:xiong}{{30}{2021}{{Xiong et~al.}}{{Xiong, Xiong, Chen, Jiang, and Zheng}}}
-\bibcite{article:bognini}{{31}{2021}{{Bongini et~al.}}{{Bongini, Bianchini, and Scarselli}}}
-\bibcite{article:wieder}{{32}{2020}{{Wieder et~al.}}{{Wieder, Kohlbacher, Kuenemann, Garon, Ducrot, Seidel, and Langer}}}
-\bibcite{article:sanchez}{{33}{2020}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec, and Battaglia}}}
-\bibcite{article:weng}{{34}{2021}{{{Weng Lo} et~al.}}{{{Weng Lo}, {Layeghy}, {Sarhan}, {Gallagher}, and {Portmann}}}}
-\bibcite{article:zhiwei}{{35}{2021}{{Guo et~al.}}{{Guo, Tang, Guo, Yu, Alazab, and Shalaginov}}}
-\bibcite{article:chaudhary}{{36}{2019}{{Chaudhary et~al.}}{{Chaudhary, Mittal, and Arora}}}
-\bibcite{article:monti}{{37}{2019}{{Monti et~al.}}{{Monti, Frasca, Eynard, Mannion, and Bronstein}}}
-\bibcite{article:jiang}{{38}{2021}{{Jiang and Luo}}{{}}}
-\bibcite{article:duvenaud}{{39}{2015}{{Duvenaud et~al.}}{{Duvenaud, Maclaurin, Iparraguirre, Bombarell, Hirzel, Aspuru-Guzik, and Adams}}}
+\bibcite{site:embeddings}{{3}{}{{sit}}{{}}}
+\bibcite{book:2008}{{4}{2008}{{Adrian~Bondy}}{{}}}
+\bibcite{article:bollobas}{{5}{2002}{{Bollobas and Szemerédi}}{{}}}
+\bibcite{book:Gary}{{6}{2012}{{Gary~Chartrand}}{{}}}
+\bibcite{book:algebraic}{{7}{}{{Ashikhmin and Barg}}{{}}}
+\bibcite{book:Newman}{{8}{2018}{{Newman}}{{}}}
+\bibcite{article:ChebNet}{{9}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
+\bibcite{book:Jost2007}{{10}{2007}{{Jost}}{{}}}
+\bibcite{article:McCulloch1943}{{11}{1943}{{McCulloch and Pitts}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{37}{dummy.144}\protected@file@percent }
+\newlabel{Bibliography}{{7}{37}{Modern Graph Neural Networks}{dummy.144}{}}
+\bibcite{article:Rosenblatt1958ThePA}{{12}{1958}{{Rosenblatt}}{{}}}
+\bibcite{book:minsky1969perceptrons}{{13}{1969}{{Minsky and Papert}}{{}}}
+\bibcite{book:werbos1975beyond}{{14}{1975}{{Werbos}}{{}}}
+\bibcite{article:Cresceptron}{{15}{1992}{{Weng et~al.}}{{Weng, Ahuja, and Huang}}}
+\bibcite{book:Gurney1997AnIT}{{16}{1997}{{Gurney}}{{}}}
+\bibcite{article:SCHMID}{{17}{2015}{{Schmidhuber}}{{}}}
+\bibcite{book:Goodfellow}{{18}{2016}{{Goodfellow et~al.}}{{Goodfellow, Bengio, and Courville}}}
+\bibcite{article:Cauchy}{{19}{1847}{{Cauchy}}{{}}}
+\bibcite{book:optimization}{{20}{2005}{{Liqun~Qi}}{{}}}
+\bibcite{book:Abramowitz}{{21}{1972}{{Abramowitz and Stegun}}{{}}}
+\bibcite{book:nielsen}{{22}{2015}{{Nielsen}}{{}}}
+\bibcite{article:bottou}{{23}{2010}{{Bottou}}{{}}}
+\bibcite{book:robbins}{{24}{1971}{{Robbins and Siegmund}}{{}}}
+\bibcite{book:WerbosBackprop}{{25}{1994}{{Werbos}}{{}}}
+\bibcite{article:backprop}{{26}{1986}{{Rumelhart et~al.}}{{Rumelhart, Hinton, and Williams}}}
+\bibcite{article:lecun1998}{{27}{1998}{{Lecun et~al.}}{{Lecun, Bottou, Bengio, and Haffner}}}
+\bibcite{article:TGNNM}{{28}{2009}{{Scarselli et~al.}}{{Scarselli, Gori, Tsoi, Hagenbuchner, and Monfardini}}}
+\bibcite{article:zhou}{{29}{2020}{{Zhou et~al.}}{{Zhou, Cui, Hu, Zhang, Yang, Liu, Wang, Li, and Sun}}}
+\bibcite{article:sperduti}{{30}{1997}{{Sperduti and Starita}}{{}}}
+\bibcite{article:geomDeep}{{31}{2017}{{Bronstein et~al.}}{{Bronstein, Bruna, LeCun, Szlam, and Vandergheynst}}}
+\bibcite{hamilton2017representation}{{32}{2017}{{Hamilton et~al.}}{{Hamilton, Ying, and Leskovec}}}
+\bibcite{article:zhang}{{33}{2017}{{Zhang et~al.}}{{Zhang, Yin, Zhu, and Zhang}}}
+\bibcite{mikolov2013efficient}{{34}{2013{}}{{Mikolov et~al.}}{{Mikolov, Chen, Corrado, and Dean}}}
+\bibcite{mikolov2013distributed}{{35}{2013{}}{{Mikolov et~al.}}{{Mikolov, Sutskever, Chen, Corrado, and Dean}}}
+\bibcite{article:xiong}{{36}{2021}{{Xiong et~al.}}{{Xiong, Xiong, Chen, Jiang, and Zheng}}}
+\bibcite{article:bognini}{{37}{2021}{{Bongini et~al.}}{{Bongini, Bianchini, and Scarselli}}}
+\bibcite{article:wieder}{{38}{2020}{{Wieder et~al.}}{{Wieder, Kohlbacher, Kuenemann, Garon, Ducrot, Seidel, and Langer}}}
+\bibcite{article:sanchez}{{39}{2020}{{Sanchez-Gonzalez et~al.}}{{Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec, and Battaglia}}}
+\bibcite{article:weng}{{40}{2021}{{{Weng Lo} et~al.}}{{{Weng Lo}, {Layeghy}, {Sarhan}, {Gallagher}, and {Portmann}}}}
+\bibcite{article:zhiwei}{{41}{2021}{{Guo et~al.}}{{Guo, Tang, Guo, Yu, Alazab, and Shalaginov}}}
+\bibcite{article:chaudhary}{{42}{2019}{{Chaudhary et~al.}}{{Chaudhary, Mittal, and Arora}}}
+\bibcite{article:monti}{{43}{2019}{{Monti et~al.}}{{Monti, Frasca, Eynard, Mannion, and Bronstein}}}
+\bibcite{article:jiang}{{44}{2021}{{Jiang and Luo}}{{}}}
+\bibcite{xu2018powerful}{{45}{2018}{{Xu et~al.}}{{Xu, Hu, Leskovec, and Jegelka}}}
+\bibcite{article:duvenaud}{{46}{2015}{{Duvenaud et~al.}}{{Duvenaud, Maclaurin, Iparraguirre, Bombarell, Hirzel, Aspuru-Guzik, and Adams}}}
+\bibcite{defferrard2016convolutional}{{47}{2016}{{Defferrard et~al.}}{{Defferrard, Bresson, and Vandergheynst}}}
+\bibcite{article:hammond}{{48}{2011}{{Hammond et~al.}}{{Hammond, Vandergheynst, and Gribonval}}}
+\bibcite{article:messageP}{{49}{2017}{{Gilmer et~al.}}{{Gilmer, Schoenholz, Riley, Vinyals, and Dahl}}}
+\bibcite{velickovic2017graph}{{50}{2017}{{Velickovic et~al.}}{{Velickovic, Cucurull, Casanova, Romero, Lio, and Bengio}}}
