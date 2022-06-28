@@ -332,6 +332,8 @@ CNNs.
 
 \section{Modern Graph Neural Networks}
 
+\subsection{Embeddings}
+
 Message passing forms the basis of all modern GNNs, while in this
 thesis a model employing an attention layer was used, called Graph
 Attention Networks first proposed by \citet{velickovic2017graph}.  The
@@ -339,8 +341,6 @@ attention \cite{article:attention} mechanism used in this paper is
 briefly discussed in \aref{sec:transformers} and in the case of
 graphs, it operates by computing the hidden representations of each
 node by attending over its neighbors, using self-attention.
-
-
 
 As mentioned in the previous section, a function which creates
 the representations of nodes must be permutation invariant. As an
@@ -355,6 +355,69 @@ A softmax function \footnote{ A softmax (also known as softargmax or
   its formula is $\sigma(\bm{z})_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$
   where $K>1$.
 } can be applied to focus on the neighbor with the highest relevance to the
-node. A common scoring function is the inner product and it is also common
+node. A common scoring function is the inner product and it is also usual
 to transform the nodes before scoring into key and query vectors to increase
-the 
+the expressivity of the mechanism. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{Figures/chap_gnn/multiheadgat.png}
+  \label{fig:multiheadGAN}
+  \caption[Multi-head attention mechanism for representation
+extraction]{The attention mechanism used by
+\citet{velickovic2017graph}. On the \textbf{left} is a demonstration
+of the attention mechanism $f(\bm{W}\vec{h}_i, \bm{W}\vec{h}_j) $ used
+by the model, with a parametrization of $\bm{\vec{a}}$ of the weight
+vector. On the \textbf{right} a demonstration of the multi-head module
+in action, acting on node $\vec{h}_1$ with $K=3$ with independent
+attention computations visible. The representation $\vec{h}'_1$ is
+obtained through the aggregation of features after proper
+concatenation of the heads. }
+\end{figure}
+
+The attention mechanism used in graph attention networks is extensively
+discussed in \aref{sec:attentionGAT}. In a more compact form, it is possible
+to express the embedding produced by a GAT in a compact form as:
+
+Starting from $h_v^{(0)} = x_v$ for the initial embedding for node $v$:
+\begin{equation}
+h_v^{(k)} = f^{(k)} \Big( \bm{W}^{(k)}\Big[ \sum_{u\in
+N_u}\alpha^{(k-1)}_{vu}h^{(k-1)}_u +
+\alpha_{vv}^{(k-1)}h_v^{(k-1)}\Big] \Big), v \in V.
+\label{eq:gat_compact}
+\end{equation}
+
+The attention weights $\alpha^{(k)}$ derivation can be found in the
+appendix. Obviously, predictions can be made using the final embedding
+$\hat{y}_v = g(h_v^{(K)})$ where $g$ is generally another neural network
+learned together with the GAT model. The parameters $f^{(k)}, \bm{W^{(k)}} \text{and}
+\bm{A^{(k)}}$ are shared across all nodes and are potentially learnable \cite{daigavane2021understanding}.
+
+\subsection{Learning}
+
+In the previous section, embeddings were created for nodes, using the
+GAT spatial computation described. These embedding layer can be attached
+in an end-to-end fashion in the same manner as a typical NN, to train the
+network and produce usable outputs. This can be achieved by defining a suitable
+loss function for each learning task:
+
+\textbf{Node classification}: In a similar manner as in other classification
+tasks, node classification can take advantage of the categorical cross-entropy loss
+function:
+\begin{equation}
+  \label{eq:categoricalCE}
+  L(y_v,\hat{y_v}) = - \sum_c y_{vc} log\hat{y}_{vc}
+\end{equation}
+where $\hat{y}_{vc}$ is the predicted probability of node $v$ belogning to class $c$.
+
+\textbf{Graph Classification}: The aggregate of the node embeddings can be
+used to create a vector representation of the entire graph which can be used
+for tasks even beyond classification. It can be passed to another neural
+network $NN_G$ as:
+\begin{equation*}
+  h_G = NN_G(AGG_{v\in G}({h_v}))
+\end{equation*}
+
+while there are many publications on powerful pooling techniques \cite{
+  zhang2018end, ying2018hierarchical, lee2019self
+}.
