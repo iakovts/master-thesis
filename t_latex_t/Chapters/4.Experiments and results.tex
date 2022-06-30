@@ -95,8 +95,78 @@ where $w_i(t)$ is the weight assigned to node $v_i$ at time $t$,
 $Z'=\sum_{t \in T'} \sum_{v_i \in V'(t)}w_i(t)$ a normalization factor
 and $L(y_i(t), \hat{y}_i(t))$ the local losses of each node.
 
-\section{Architecture of GNN TODO}
-\subsection{Structure/layers}
+\section{Architecture of the GNN}
+
+\subsection{Structure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{Figures/chap_exp/GATArch.png}
+  \caption[The GAT GNN Architecture]{Schematic showing the layers in the GAT GNN used. Red blocks indicate trainable affine transformations (automorphisms). Purple blocks indicate activation functions. The attention module is in blue and the orange block in the end is the last activation which translates the transformations to the expected format. Image source \cite{murphy}.}
+  \label{fig:GATGNN}
+\end{figure}
+
+The architecture of the network used can be seen in \fref{fig:GATGNN}.
+The state $x_i$ of each node is transformed through a shared MLP
+$\hat{f}_{in} : S \rightarrow \mathbb{R}^d$ where $d$ is the resulting
+number of node features:
+\begin{equation}
+  \label{eq:input_layer}
+  \xi_i = \hat{f}_{in}(x_i)
+\end{equation}
+When available, the node attributes $\Phi_i$ are concatenated to $x_i$
+so $\hat{f}_{in}: S \times \mathbb{R}^Q \rightarrow \mathbb{R}^d$ and the
+$\xi_i$ is now a feature vector with representing the state and attributes of node $v_i$.
+The features of the first neighbors are then aggregated using an attention mechanism
+discussed in the next section:
+\begin{equation}
+  \label{eq:first_att}
+  v_i = \hat{f}_{att} (\xi_i, \xi_{N_i})
+\end{equation}
+
+If available, edge attributes $\Omega_{ij}$ are also included in the attention
+mechanism. In a similar manner as before, these attributes are first transformed
+into edge features through a $\psi_{ij} = \hat{f}_{edge} (\Omega_{ij})$ where
+$\hat{f}_{edge}: \mathbb{R}^P \rightarrow \mathbb{R}^{d_edge}$ is also an MLP.
+Finally the outcome $\hat{y}_i$ of each node is computed with another MLP $\hat{f}_{out}: \mathbb{R}^d \rightarrow R$:
+\begin{equation}
+  \label{eq:final_out}
+  \hat{y}_i = \hat{f}_{out}(v_i)
+\end{equation}
+
+\subsection{Attention Mechanism}
+The attention mechanism used is a modified version of the one described by
+\citet{velickovic2017graph}. It consists of three trainable functions
+$A, B \text{ and} C$ that combine the feature vectors $\xi_i, xi_j \text{ and } \psi_{ij}$ of
+pair of connected nodes $v_i$ and $v_j$. The attention coefficient is:
+\begin{equation}
+  \label{eq:att_coeff}
+  \alpha_{ij} = \sigma \big[ A(\xi_i) + B(\xi_j) + C(\psi_{ij}) \big]
+\end{equation}
+where $\sigma$ is the logistic function which allows for an output range
+in $(0, 1)$, 1 meaning maximal influence of $v_j$ on $v_i$ and 0 non-existent influence.
+All of the transformations $A, B, \text{ and } C$ are affine and have trainable weights
+and biases. 
+
+The aggregation formula is:
+\begin{equation}
+  \label{eq:att_aggr}
+  v_i = \hat{f}_{att}(\xi_i, \xi_{N_i}) = \xi_i + \sum_{v_j \in N_i} \alpha_{ij} \xi_j
+\end{equation}
+and this $v_i$ contais information about itself and its neighbors through a
+multi-head attention mechanism. In contrast with the proposed aggregation mechanism
+from the GAT paper, the one used in \eref{eq:att_aggr} uses a general weighted sum
+which allows for the architecture to express dynamic process more accurately. The one
+used by the GAT paper and other architectures is better when creating models for structure
+learning. 
+
+\subsection{Loss Function}
+The cross entropy loss function was used in all experiments:
+\begin{equation}
+  \label{eq:cross_loss}
+  L(y_i, \hat{y}_i) = - \sum_m y_{i,m} log \hat{y}_{i,m}
+\end{equation}
+with $y_i,m$ the $m^{th}$ element of the outcome vector for node $v_i$ a transition
+probability vector as discussed before. 
 \section{Experiments TODO}
 \subsection{SIS}
 \subsection{Modular}

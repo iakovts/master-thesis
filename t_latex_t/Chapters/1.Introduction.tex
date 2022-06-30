@@ -536,4 +536,104 @@ from opinion spreading, epidemics, flow of electricity on grids,
 spread of packages on internet networks and many more systems
 whose dynamics are evolving on a network. In fact, many network
 processes can be understood 
-\textbf{TODO: ADD INFO HERE}
+% \textbf{TODO: ADD INFO HERE}
+
+\subsection{Simple Contagion Dynamics (SIS)}\label{sec:SIS}
+
+In this model, the simple contagion dynamics called
+susceptible-infected-suspectible (SIS) are considered, a stochastic
+model. Here, the state of a node has a chance to transition from one
+state to another based on either a function of the states of its
+neighbors or a static probability. Specifically, the set of all
+possible node states are $\pazocal{S} = \{S, I\} = \{0, 1\}$ with S $\rightarrow$
+suspectible and $\rightarrow$ infected. The dynamics are stochastic
+so the set of all possible node outcomes is $\pazocal{R} = [0, 1]^2$.
+The infection function $f_{inf}$ is defined as the probability of a
+susceptible node becoming infected, based on a the number of infected
+numbers $n_{inf}$:
+\begin{equation}
+  \label{eq:prob_inf}
+  Pr(S \rightarrow I|n_{inf}) = f_{inf}{n_{inf}} = 1 - (1 - \gamma)^{n_{inf}}
+\end{equation}
+where $\gamma$ is the disease's transimission probability --- a constant
+parameter.
+The recovery probability is constant and defined by:
+\begin{equation}
+  \label{eq:prob_rec}
+  Pr(I \rightarrow S) = \beta
+\end{equation}
+
+Therefore, it is possible to define the node outcome function of the SIS
+dynamics as a function of a node state its neighbors' $x_i, x_{N_i}$:
+
+\begin{equation}
+  \label{eq:sis}
+  f(x_i, x_{N_i}) = \begin{cases}
+                      (1 - f_{inf}(n_{inf_i}), f_{inf}(n_{inf_i})), &\text{if } x_i=0, \\
+                       (\beta, 1 - \beta), & \text{if } x_1 = 1,                                                          
+                    \end{cases}
+\end{equation}
+
+where $n_{inf_i} = \sum_{v_j \in N_i}\delta (x_j, 1)$ the number of infected
+neighbors of node $v_i$. Note that the output of the \eref{eq:sis} is a two
+dimensional probability vector where the ``column'' is the probability that it
+becomes or remains susceptible and the second is the probability that it becomes
+or remains infected.
+
+\subsection{Majority Rule --- Opinion Spreading}
+
+The majority rule is one of the simplest opinion spreading dynamics
+models, where each node adopts the state of the of the majority of
+its neighbors. It is a deterministic model. The set of all possible node
+states is $\pazocal{S} = \{0, 1\}$ and outcomes $\pazocal{R} = \{0, 1\}$.
+
+The node outcome function of this type of dynamics takes the form
+of the majority function from boolean logic, which evaluates to false
+if more than half of its arguments are false and true otherwise:
+\begin{equation}
+  \label{eq:majority}
+  f(x_i, x_{N_i}) = \biggl\lfloor \frac{1}{2} + \frac{(\sum_{j \in N_i}x_j) - 1/2}{N_i} \biggr \rfloor
+\end{equation}
+where $\lfloor \cdots \rfloor$ denotes the floor operation.
+
+\section{Models of network formation}\label{sec:creating_nw}
+
+When studying networks it is important to be able to reproduce the complexity
+of a real system. To this end, algorithms which attempt to recreate some form
+of realistic networks have been proposed. In this thesis, the two methods used
+are the Barab{\'a}si-Albert model by \citet{albert2002statistical} and the
+Erdős–Rényi model by \citet{erdHos1960evolution}.
+
+\subsection{The Barab{\'a}si-Albert Model}
+
+This model usually starts with a small number of connected nodes,
+$m_0$.  Any new node added to the network connects to $m$ (where $m
+\leq m_0$ ) nodes and the probability that the newly added node
+connects to node $i$ is:
+\begin{equation}
+  \label{eq:ba_nw}
+  p_i = \frac{k_i}{\sum_j k_j}
+\end{equation}
+where $j$ is the total number of nodes already in the network and $k$ is the degree.
+As a result, nodes which are heavily linked tend to quickly accumulate more links.
+This type of network is obviously always fully connected.
+
+\subsection{Erd{\H{o}}s-R{\'e}nyi Model}
+
+
+Two different but closely related types of this model exist. 
+
+\textbf{The $G(n, M)$ (ER) Model} This model was described by Erd{\H{o}}s and R{\'e}nyi,
+and in this case, a graph is chosen in a uniform manner from a collection of all
+graphs with $n$ nodes and $M$ edges among them. 
+
+\textbf{The $G(n, p)$ Model} This variation was proposed \citet{article:gilber}, and is
+contemporary with the ER model. Here, a graph is constructed by connecting the nodes $n$
+randomly. The probability of generating a graph with $M$ edges is:
+\begin{equation}
+  \label{eq:er}
+  p^{M}(1-p)^{\binom{n}{2}-M}
+\end{equation}
+where the parameter $p$ defines the connectivity of the graph. As an example,
+in a random graph generated using this method with 1000 nodes and p=0.004 each node
+is connected randomly to roughly 4 other nodes. 
