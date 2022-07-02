@@ -4,15 +4,9 @@
 In this subsection, the main aspects of graph theory are briefly presented.
 \subsection{Introduction}
 
-
-% \subsubsection{Begginings and historical remarks}
-
-
-% \subsubsection{Introduction}
-
 In the real world, many problems can be described by a diagram connecting a set of points with
 lines, joining pairs of these points, or even creating loops on a single point. A simple example
-of that would be a set of points representing people with lines connecting acquintances, or
+of that would be a set of points representing people, with lines connecting acquintances, or
 points representing atoms and lines representing chemical bonds, creating a representation of
 a molecule as a graph attribute. In the examples above, the only information contained is whether
 two points are associated, with the manner being disregarded. The concept of a graph consists of
@@ -29,7 +23,7 @@ a mathematical abstraction of the above. \cite{book:2008}
 \footnotetext{An ordered pair $(a, b)$ is a pair of objects in which the order of
 appearance or insertion is significant; the ordered pair $(a, b)$ is different than $(b,
 a)$ unless $a=b$. An unordered pair is a set of the form ${a, b}$ is a set having two
-elements with no relation between them and ${a, b} = {b, a}$.  }
+elements with no relation between them and $\{a, b\} = \{b, a\}$.  }
 \end{definition}
 
 This type of object is called an \textbf{undirected simple graph} to avoid confusion
@@ -41,7 +35,7 @@ $V(G)$ of \textit{vertices} (also called \textit{nodes} or \textit{points}) and 
 $E(G)$, disjoint from $V(G)$ which consists of \textit{edges} (also called \textit{links}
 or \textit{lines}) together with an incidence function $\psi_G$ that associates with each
 edge of G an unordered pair of not necesserily distinct vertices of G.  If $e$ is an edge
-and $u$ and $v$ are vertices such that $\psi_G ={u, v}$ then $e$ is said to \textit{join}
+and $u$ and $v$ are vertices such that $\psi_G =\{u, v\}$ then $e$ is said to \textit{join}
 $u$ and $v$, and the vertices $u$ and $v$ are called the \textit{ends} of $e$. We denote
 the numbers of vertices and edges $G$ by $u(G)$ and $e(G)$ which two parameters are called
 the \textit{order} and \textit{size} of G, respectively \cite{book:2008}.
@@ -62,7 +56,7 @@ A \textit{loop} is a an edge that allows a connection of a vertex to itself and 
 be defined to either allow or disallow the presence of loops. Some authors allow for loops
 to exist on \textit{multigraphs} \cite{article:bollobas}, while other consider these kind
 of graphs to exist in a different category, called \textit{pseudographs} \cite{book:Gary}.
-Allowing loops requires modifying the incidence function so they can be supported. The new
+Allowing loops requires modifying the incidence function so they can be supported. This new
 incidence function can be written as:
 \begin{equation}\label{eq:phi} \phi_G : E \rightarrow \{\{x, y \} | x,y \in V\} \end{equation}
 The example presented below should better illustrate clarify the definition (of a pseudograph).
@@ -107,10 +101,12 @@ It is now possible to define some characteristic attributes of graphs:
 \item The \textbf{degree} (or \textbf{valency}) of a single node is the number of
   edges connected to it. The \textbf{degree} of a graph is the maximum number of
   edges connected to a single vertex that belongs to it.
-\item The edges of create a \textit{homogenous relation}\footnotemark{} $\sim$ on the vertices
-  of the graph that is called \textbf{adjacency relation}; for each edge \textit{$(x, y)$}, its
-  endpoints \textit{x, y} are said to be \textbf{adjacent} to each other, denoted by $x \sim y$.
-  This property will be particulary useful when the adjacency matrix is defined in the following
+\item The edges of the graph create a \textit{homogenous
+relation}\footnotemark{} $\sim$ on the vertices that is called
+\textbf{adjacency relation}; for each edge \textit{$(x, y)$}, its
+endpoints \textit{x, y} are said to be \textbf{adjacent} to each
+other, denoted by $x \sim y$.  This property will be particulary
+useful when the adjacency matrix is defined in the following
   section.
 \end{itemize}
 
@@ -121,7 +117,7 @@ It is now possible to define some characteristic attributes of graphs:
 
 It can be inferred from the above definitions and attributes that for an undirected
 graph of order \textit{n}, the maximum \textit{degree} of a node is $n~-~1$ and
-and maximum \textit{size} of a graph is $n(n~-~1)/2$.
+and maximum \textit{size} of a graph is $n(n~-~1)/2$ (if no multi-edges are present).
 
 \end{definition}
 
@@ -183,7 +179,7 @@ the following adjacency matrix:
   \caption{Adjacency matrix for \fref{fig:simple_adj_demo}}
 \end{table}
 
-For this simple network, which has no loops and only one edge connect two nodes,
+For this simple network, which has no loops and only one edge connects two nodes,
 the diagonal matrix elements are always zero and the matrix is symmetric, as for
 each edge connecting $i$ and $j$ there is a representation for the $j$ to $i$ connection
 as well.
@@ -259,7 +255,7 @@ order.
 
 \subsection{Graph Laplacian}\label{sec:laplacian}
 
-The graph lacplacian is another representation matrix representation
+The graph lacplacian is another representation 
 of a graph. In its simplest form, for a simple, undirected and unweigheted
 network of order $n$, is a $n \times n$ matrix \textbf{L} with elements:
 \begin{equation*}
@@ -286,7 +282,7 @@ ChebNet \cite{article:ChebNet} which will be discussed in depth later.
 
 \subsection{Edge weights} \label{sec:edge_weights}
 
-So far, while presenting edges, we have considered graphs where
+So far, while presenting edges, graphs were considered where
 connections between nodes represented binary relations between them;
 they either existed or they did not. In many situations when studying
 graphs, it is useful to represent edges as connections which carry some
@@ -303,7 +299,7 @@ the figure below.
          \centering
          \includegraphics[scale=0.5]{Figures/chapter1/simple_weighted.png}
          \caption{Multigraph with no loops and multiple edges.}
-         \label{fig:simple_adj_demo}
+         % \label{fig:simple_adj_demo}
      \end{subfigure}
      \hfill
      \begin{subfigure}[c]{0.4\textwidth}
@@ -347,7 +343,7 @@ themselves are called \textit{paths}.
   the number of walks of length $c$ among two nodes. If there is a connection
   between two nodes $i$ and $j$, then $A_{ij} = 1$ else it is 0. Moving
   to the second power and taking for example an intermediate node $k$
-  which might lie between $i$ and $j$, the product $A_{ik}{kj}$ would be
+  which might lie between $i$ and $j$, the product $A_{ik}A_{kj}$ would be
   1 if there is a node and 0 if there is not \cite[p.~131]{book:Newman}.
   Generalizing to walks of length $c$ which traverse nodes $i$ to $j$, their
 total number is:
@@ -441,7 +437,7 @@ nodes or number of paths of length 2)
 
   \begin{example}
     In this example, a classroom of 5 classmates is presented. Each student
-    has a number of \textbf{node} attributes, their age, heigh and average
+    has a number of \textbf{node} attributes, their age, height and average
     grade (from F to A). \textbf{Edge} attributes between students hold
     information about their physical proximity when seated for class,
     and their kinship (as a real number between $0-1$). Finally,
@@ -550,7 +546,7 @@ suspectible and $\rightarrow$ infected. The dynamics are stochastic
 so the set of all possible node outcomes is $\pazocal{R} = [0, 1]^2$.
 The infection function $f_{inf}$ is defined as the probability of a
 susceptible node becoming infected, based on a the number of infected
-numbers $n_{inf}$:
+neighbors $n_{inf}$:
 \begin{equation}
   \label{eq:prob_inf}
   Pr(S \rightarrow I|n_{inf}) = f_{inf}{n_{inf}} = 1 - (1 - \gamma)^{n_{inf}}
@@ -564,7 +560,7 @@ The recovery probability is constant and defined by:
 \end{equation}
 
 Therefore, it is possible to define the node outcome function of the SIS
-dynamics as a function of a node state its neighbors' $x_i, x_{N_i}$:
+dynamics as a function of a node state and its neighbors' $f(x_i, x_{N_i})$:
 
 \begin{equation}
   \label{eq:sis}
@@ -576,25 +572,55 @@ dynamics as a function of a node state its neighbors' $x_i, x_{N_i}$:
 
 where $n_{inf_i} = \sum_{v_j \in N_i}\delta (x_j, 1)$ the number of infected
 neighbors of node $v_i$. Note that the output of the \eref{eq:sis} is a two
-dimensional probability vector where the ``column'' is the probability that it
+dimensional probability vector where the first ``column'' is the probability that it
 becomes or remains susceptible and the second is the probability that it becomes
 or remains infected.
 
-\subsection{Majority Rule --- Opinion Spreading}
+\subsection{Complex Contagion Dynamics --- Planck SIS}\label{sec:planck}
 
-The majority rule is one of the simplest opinion spreading dynamics
-models, where each node adopts the state of the of the majority of
-its neighbors. It is a deterministic model. The set of all possible node
-states is $\pazocal{S} = \{0, 1\}$ and outcomes $\pazocal{R} = \{0, 1\}$.
-
-The node outcome function of this type of dynamics takes the form
-of the majority function from boolean logic, which evaluates to false
-if more than half of its arguments are false and true otherwise:
+This model is similar to the simple SIS model described above, but the
+infection function $f_{inf}$ has a non-monotonic form insipired by
+Planck's law of black-body radiation. It was proposed in the paper
+``Deep learning of contagion dynamics on complex networks'' by
+\citet{murphy} and can be defined as:
 \begin{equation}
-  \label{eq:majority}
-  f(x_i, x_{N_i}) = \biggl\lfloor \frac{1}{2} + \frac{(\sum_{j \in N_i}x_j) - 1/2}{N_i} \biggr \rfloor
+  \label{eq:plank}
+  f_{inf} = \frac{1}{z(\eta)} \frac{n_{inf}^3}{e^{n_{inf}/\eta}-1}
 \end{equation}
-where $\lfloor \cdots \rfloor$ denotes the floor operation.
+
+where $z(\eta)$ is used to normalize the infection function so
+that $f_{inf}(n_{inf}^*)=1$ at its global maximum $n_{inf}^*$ and
+$\eta>0$ is a parameter controlling the position of $n_{inf}$.
+Specifically $z(\eta)$ is defined as:
+\begin{equation}
+  \label{eq:zeta}
+  z(\eta) = \frac{\gamma^3  \eta^3}{e^\gamma - 1}
+\end{equation}
+where $\gamma \gets \Re(W(-3e^{(-3)}))$ is the real part of the
+\textit{Lambert W function}. The ``temperature'' $\eta$ and the
+recovery rate $\beta$ are parameters defined per experiment.
+
+Although this model draws insipiration from the formula of Planck's
+black body radiation, it does not have any physical meaning but it
+was merely chosen for the shape of its curve.
+
+
+% \subsection{Majority Rule --- Opinion Spreading}
+
+% The majority rule is one of the simplest opinion spreading dynamics
+% models, where each node adopts the state of the of the majority of
+% its neighbors. It is a deterministic model. The set of all possible node
+% states is $\pazocal{S} = \{0, 1\}$ and outcomes $\pazocal{R} = \{0, 1\}$.
+
+% The node outcome function of this type of dynamics takes the form
+% of the majority function from boolean logic, which evaluates to false
+% if more than half of its arguments are false and true otherwise:
+% \begin{equation}
+%   \label{eq:majority}
+%   f(x_i, x_{N_i}) = \biggl\lfloor \frac{1}{2} + \frac{(\sum_{j \in N_i}x_j) - 1/2}{N_i} \biggr \rfloor
+% \end{equation}
+% where $\lfloor \cdots \rfloor$ denotes the floor operation.
+
 
 \section{Models of network formation}\label{sec:creating_nw}
 

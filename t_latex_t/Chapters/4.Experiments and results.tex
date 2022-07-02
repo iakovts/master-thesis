@@ -17,7 +17,7 @@ for learned dynamics to be applied beyond the training data.
 
 \textbf{TODO: MAYBE MORE HERE}
 
-\section{Fundamental Ideas of this approach}
+\section{Fundamental ideas of this approach}
 
 In this approach, it is assumed that an unknown dynamical process
 denoted as $M$ which takes places on a known network structure
@@ -126,7 +126,7 @@ discussed in the next section:
 If available, edge attributes $\Omega_{ij}$ are also included in the attention
 mechanism. In a similar manner as before, these attributes are first transformed
 into edge features through a $\psi_{ij} = \hat{f}_{edge} (\Omega_{ij})$ where
-$\hat{f}_{edge}: \mathbb{R}^P \rightarrow \mathbb{R}^{d_edge}$ is also an MLP.
+$\hat{f}_{edge}: \mathbb{R}^P \rightarrow \mathbb{R}^{d_{edge}}$ is also an MLP.
 Finally the outcome $\hat{y}_i$ of each node is computed with another MLP $\hat{f}_{out}: \mathbb{R}^d \rightarrow R$:
 \begin{equation}
   \label{eq:final_out}
@@ -167,7 +167,122 @@ The cross entropy loss function was used in all experiments:
 \end{equation}
 with $y_i,m$ the $m^{th}$ element of the outcome vector for node $v_i$ a transition
 probability vector as discussed before. 
-\section{Experiments TODO}
+
+\subsection{Benchmarking and performance}
+
+As a global performance measure, the Pearson correlation coefficient $r$
+was used, which in this case is defined on a set of targets $Y$ and predictions $\hat{Y}$:
+\begin{equation}
+  \label{eq:pearson}
+  r = \frac{\mathbb{E}[(Y - \mathbb{E}[Y])(\hat{Y} - E[\hat{Y}])]}{\sqrt{
+      \mathbb{E}[(Y - \mathbb{E}[Y])^2]\mathbb{E}[(\hat{Y} - \mathbb{E}[\hat{Y}])^2]}}
+\end{equation}
+
+where $\mathbb{E}[Z]$ is the expectation of $Z$. Maximum correlation occurs at
+$r=1$ thus $1-r$ can be defined as the global error on a set of target-prediction
+pairs.
+
+\section{Experiments}\label{sec:exps}
+The experiments conducted for this thesis are largery based on the
+methodology and code which was published in the paper ``Deep learning
+of contagion dynamics on complex networks'' by \citet{murphy}. The code
+which was provided as a supplementary to the publication was modified to
+accommodate the scenarios studied. 
+
+\subsection{Generating Data}
+Data was generated from two distinct types of graphs, an Erd{\H{o}}s-R{\'e}nyi
+$G(n, p)$ model and a ``Barab{\'a}si-Albert'' model, both described in \sref{sec:creating_nw},
+where some type of complex dynamics was applied to them. 
+
+For each of these experiments, datasets were created where one type of dynamics
+was run on a given network creating at least 1000 samples ?of data, used in
+training and validation sets for the Neural Network. Networks and dynamics were
+created randomly to avoid using the same training or validation parameters repeatedly;
+the starting states for each node were randomized on each run.
+
+Additionally, the maximum likelihood estimators (MLE) were computed
+for the transition probabilities of each node with $n_{inf}$ infected
+neighbors that transitioned to state $y$ in the dataset, as well as
+for all the neighbors. This is stands a reference to benchmark the
+accuracy of the model. Finally, the standard deviations of the model's
+results are also shown in the figures.
+
+
 \subsection{SIS}
-\subsection{Modular}
-\subsection{Majority rule}
+
+In this experiment, the SIS model described on \sref{sec:SIS} was used
+as a dataset, and the GNN model was trained on that set. The results
+are showcased in the figure below for a Barab{\'a}si-Albert network
+described in \sref{sec:creating_nw}. Additional results for the same dynamics
+run on a $G(n, p)$ network appear in the Appendix on \sref{sec:res_add}.
+% Erd{\H{o}}s-R{\'e}nyi (G(n, p))
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{Figures/chap_exp/ba_sis_default.png}}
+  \caption[Results for BA network running SIS dynamics]{
+    On the \textbf{top }figure, the transition probabilities for the simple
+    contagion dynamics (SIS) dynamics model are shown. \textit{GT} stands
+    for ground truth; the transition probabilities used when generating
+    the dataset. Circles and triangles represent the MLE computed for said
+    probabilities, with circles for the $S \rightarrow I$ transition and
+    triangles for $I \rightarrow S$ with error bars present. The colored
+    area around the lines is the standard deviation for a given number of
+    infected neighbors. On the \textbf{middle} figure, a comparison of
+    the predicted and targets ($y_i(t), \hat(y)_i(t)$) appears, with the Pearson
+    coefficient $r$ for the whole set of pairs. Each point in this figure represents
+    a different pair. On the \textbf{bottom} figure, the errors (1 - $r$) as a function
+    of the number of neighbors are presented, both for the GNN and the MLE. These errors
+    are computed from the subsets of the prediction and targets pairs where all
+    nodes have degree $k$.
+  }
+  \label{fig:ba_sis}
+\end{figure}
+
+\subsection{Planck SIS}
+
+Here, the Planck SIS dynamics described in \sref{sec:planck} were
+applied to a BA network. This kind of dynamics presents interest as it
+has a complex distribution which is considered more challenging for
+both the GNN and MLE to predict accurately.
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{Figures/chap_exp/ba_plancksis_default.png}}
+  \caption[Results for BA network running planck SIS dynamics]{
+    Results for Planck SIS dynamics running on a BA
+    network. Description same as in \fref{fig:ba_sis}.
+  }
+  \label{fig:ba_plancksis}
+\end{figure}
+
+\newpage
+\section{Discussion of results}\label{sec:discussion}
+
+The results indicate that the GNN model is far greater than the MLE,
+with the predictions being systematically smoother. The MLE is
+computed for each pair of $(x, n_{inf})$ individually, requiring a
+large number of pairs for proper accuracy which is rare in realistic
+settings.  Even in the synthetic networks used in the approach used
+in the experiments, it is especially hard to have pairs of high degree.
+It is also impossible for the MLE approach to directly interpolate beyond
+the pairs present in the training set where the GNN can, by definition.
+Furthermore, during training, the GNN benefits from all samples, small or
+high degree, as all of its parameters are always involved during this phase
+to improve its predictions leading to smoothness and precision. It is important
+to remember than the GNN's goal is to ``learn'' the dynamics of the network,
+and is not just a statistical method. 
+
+In the figures \ref{fig:ba_sis}, \ref{fig:ba_plancksis} and \ref{fig:gnp_sis}
+the results of the GNN model and MLE are presented. The global performance
+of the models was quantified using Pearson's correlation coefficient $r$ for each
+pair of predictions and targets $(y(t), \hat{y}(t))$ which is presented in the middle
+subfigure. Finally, the error computed as the $1-r$ for each degree
+class is showcased in the bottom subfigures and compared to the
+equivalent MLE errors. This also allows for a quantification of the
+performance of the GNN on each local structure. Furthermore, through this
+subfigure, the general accuracy of the GNN over the MLE across all nodes
+is straightforward to see. Specifically, as node degree gets larger, the
+MLE deteriorates rapidly as a consequence of the scarcity of inputs
+of this degree. For the same reason, the MLE is innefective for small
+training datasets. The GNN does not suffer from this problem as it uses
+every sample to improve its performance as discussed above.
