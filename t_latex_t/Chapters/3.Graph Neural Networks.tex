@@ -7,8 +7,8 @@ objects. These objects together with their connections define
 \textit{graphs} as described in \sref{sec:graphs}. In the past decade,
 research has been conducted in neural networks \cite{article:TGNNM}
 which can operate in graph data; vertices, edges and global attributes
-of graphs. Graphs can express systems organized in a large number and
-interacting, and complex systems, which can be found in various areas
+of graphs. Graphs can express systems organized in large numbers while interacting
+interacting, such as complex systems, which can be found in various areas
 of scientific study. As a defining characteristic, GNNs are deep
 learning methods operating on the graph domain \cite{article:zhou}.
 
@@ -377,7 +377,7 @@ concatenation of the heads. Image source \cite{velickovic2017graph}.}
 
 The attention mechanism used in graph attention networks is extensively
 discussed in \aref{sec:attentionGAT}. In a more compact form, it is possible
-to express the embedding produced by a GAT in a compact form as:
+to express the embedding produced by a GAT as:
 
 Starting from $h_v^{(0)} = x_v$ for the initial embedding for node $v$:
 \begin{equation}
@@ -406,7 +406,7 @@ tasks, node classification can take advantage of the categorical cross-entropy l
 function:
 \begin{equation}
   \label{eq:categoricalCE}
-  L(y_v,\hat{y_v}) = - \sum_c y_{vc} log\hat{y}_{vc}
+  L(y_v,\hat{y_v}) = - \sum_c y_{vc} \log\hat{y}_{vc}
 \end{equation}
 where $\hat{y}_{vc}$ is the predicted probability of node $v$ belogning to class $c$.
 
@@ -418,11 +418,11 @@ network $NN_G$ as:
   h_G = NN_G(AGG_{v\in G}({h_v}))
 \end{equation*}
 
+while there are many publications on powerful pooling techniques \cite{zhang2018end,ying2018hierarchical,lee2019self}.
+
 \textbf{Edge Prediction}: GNNs can be used to predict the presence or absence of
 edges between nodes, by sampling pairs of adjacent and non-adjacent nodes. A loss
-function closely resembling the logistic regression can be used in this case:
+function closely resembling the logistic regression can be used in this case.
 % \begin{equation*}
 %   L(y_v, y_u, e_{vu}) = -e_{vu} log(p_{vu})
 % \end{equation*}
-
-while there are many publications on powerful pooling techniques \cite{zhang2018end,ying2018hierarchical,lee2019self}.

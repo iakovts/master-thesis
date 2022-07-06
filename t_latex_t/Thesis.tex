@@ -103,49 +103,49 @@
 
 %% ----------------------------------------------------------------
 % Declaration Page required for the Thesis, your institution may give you a different text to place here
-\Declaration{
+% \Declaration{
 
-\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+% \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
-I, [author's name], declare that this thesis titled, [thesis title] and the work presented in it are my own. I confirm that:
+% I, [author's name], declare that this thesis titled, [thesis title] and the work presented in it are my own. I confirm that:
 
-\begin{itemize} 
-\item[\tiny{$\blacksquare$}] This work was done wholly or mainly while in candidature for a research degree at this University.
+% \begin{itemize} 
+% \item[\tiny{$\blacksquare$}] This work was done wholly or mainly while in candidature for a research degree at this University.
  
-\item[\tiny{$\blacksquare$}] Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+% \item[\tiny{$\blacksquare$}] Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
  
-\item[\tiny{$\blacksquare$}] Where I have consulted the published work of others, this is always clearly attributed.
+% \item[\tiny{$\blacksquare$}] Where I have consulted the published work of others, this is always clearly attributed.
  
-\item[\tiny{$\blacksquare$}] Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+% \item[\tiny{$\blacksquare$}] Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
  
-\item[\tiny{$\blacksquare$}] I have acknowledged all main sources of help.
+% \item[\tiny{$\blacksquare$}] I have acknowledged all main sources of help.
  
-\item[\tiny{$\blacksquare$}] Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.
-\\
-\end{itemize}
+% \item[\tiny{$\blacksquare$}] Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.
+% \\
+% \end{itemize}
  
  
-Signed:\\
-\rule[1em]{25em}{0.5pt}  % This prints a line for the signature
+% Signed:\\
+% \rule[1em]{25em}{0.5pt}  % This prints a line for the signature
  
-Date:\\
-\rule[1em]{25em}{0.5pt}  % This prints a line to write the date
-}
+% Date:\\
+% \rule[1em]{25em}{0.5pt}  % This prints a line to write the date
+% }
 \clearpage  % Declaration ended, now start a new page
 
 %% ----------------------------------------------------------------
 % The "Funny Quote Page"
-\pagestyle{empty}  % No headers or footers for the following pages
+% \pagestyle{empty}  % No headers or footers for the following pages
 
-\null\vfill
-% Now comes the "Funny Quote", written in italics
-\textit{Inspiring quote goes here (optional)}
+% \null\vfill
+% % Now comes the "Funny Quote", written in italics
+% \textit{Inspiring quote goes here (optional)}
 
-\begin{flushright}
-Quote's attribution
-\end{flushright}
+% \begin{flushright}
+% Quote's attribution
+% \end{flushright}
 
-\vfill\vfill\vfill\vfill\vfill\vfill\null
+% \vfill\vfill\vfill\vfill\vfill\vfill\null
 \clearpage  % Funny Quote page ended, start a new page
 %% ----------------------------------------------------------------
 
@@ -154,8 +154,25 @@ Quote's attribution
 \abstract{
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
-Abstract goes here.
-
+Graphs have been used to model relations between objects connected in
+a pairwise manner, with applications on a wide variety of real world
+situations and mathematical abstractions such as in complex
+systems. In the last decade interest in applying neural networks which
+can operate on graph data has been increasing, either in the direction
+of structure learning or dynamics acting on graphs. In this thesis the
+basic principles of graph theory and neural networks are presented,
+with an emphasis on the evolution of the approaches building up to the
+creation of the first modern Graph Neural Networks (GNNs). To this
+end, Different kinds of graphs and complex dynamics are introduced,
+the basic principles of machine learning are explained and finally a
+GNN using an Attention mechanism is used for several experiments on
+synthetic datasets of contagion dynamics acting on random graphs, to showcase
+the quantitative accuracy of this approach's predictions and the
+complexity of the dynamics it can model. The GNN
+produces predictions which are more accurate and smooth that those
+of the maximum likelihood estimators, while being able to interpolate
+better on pairs of predictions-targets not present in the training
+sets.
 }
 
 \clearpage  % Abstract ended, start a new page
@@ -189,25 +206,24 @@ Acknowledgements go here.
 
 %% ----------------------------------------------------------------
 \setstretch{1.5}  % Set the line spacing to 1.5, this makes the following tables easier to read
-\clearpage  % Start a new page
-\lhead{\emph{Abbreviations}}  % Set the left side page header to "Abbreviations"
-\listofsymbols{ll}  % Include a list of Abbreviations (a table of two columns)
-{
-\textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
-% Abbreviations go here
-}
+% \clearpage  % Start a new page
+% \lhead{\emph{Abbreviations}}  % Set the left side page header to "Abbreviations"
+% \listofsymbols{ll}  % Include a list of Abbreviations (a table of two columns)
+% {
+% \textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
+% % Abbreviations go here
+% }
 
-\lhead{}
-%% ----------------------------------------------------------------
-% End of the pre-able, contents and lists of things
-% Begin the Dedication page
+% \lhead{}
+% %% ----------------------------------------------------------------
+% % End of the pre-able, contents and lists of things
+% % Begin the Dedication page
+%
+% \setstretch{1.3}  % Return the line spacing back to 1.3
 
-\setstretch{1.3}  % Return the line spacing back to 1.3
-
-\pagestyle{empty}  % Page style needs to be empty for this page
-\dedicatory{Dedication (optional)}
-
-\addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
+% \pagestyle{empty}  % Page style needs to be empty for this page
+% \dedicatory{Dedication (optional)}
+% \addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
 
 
 %% ----------------------------------------------------------------
@@ -242,6 +258,7 @@ Acknowledgements go here.
 
 % \input{Appendices/General_Notation} 
 \input{Appendices/Transformers.tex}
+\input{Appendices/Additional results.tex}
 % Example appendices
 
 \addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
